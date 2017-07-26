@@ -6,5 +6,5 @@
   <br>
 </h1>
 
-<h4 align="center">API for communicating with <a href="https://github.com/MallCloud/contracts-api" target="_blank">Ethereum Contracts</a></h4>
+<h4 align="center">API for communicating with <a href="https://github.com/MallCloud/contracts" target="_blank">Ethereum Contracts</a></h4>
 
