@@ -8,6 +8,22 @@
 
 <h4 align="center">API for communicating with <a href="https://github.com/MallCloud/contracts" target="_blank">Ethereum Contracts</a></h4>
 
+
+<p align="center">
+
+  <a href="https://codeclimate.com/github/MallCloud/contracts-api">
+    <img src="https://codeclimate.com/github/MallCloud/contracts-api/badges/gpa.svg" alt="code climate">
+  </a>
+  <a href="https://codeclimate.com/github/MallCloud/contracts-api/coverage">
+    <img src="https://codeclimate.com/github/MallCloud/contracts-api/badges/coverage.svg" alt="test coverage">
+  </a>
+  <a href="https://codeclimate.com/github/MallCloud/contracts-api">
+    <img src="https://codeclimate.com/github/MallCloud/contracts-api/badges/issue_count.svg" alt="issue count">
+  </a>  
+
+</p>
+
+
 ### Prerequisites
 
 * [Docker](https://www.docker.com/community-edition) Community Edition v17 or higher
