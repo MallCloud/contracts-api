@@ -25,22 +25,6 @@ const delay100ms = (timeout => (callback) => {
   timeout = setTimeout(callback, 100); // eslint-disable-line no-param-reassign
 })();
 
-// Pre-compile email templates to avoid unnecessary parsing at run time. See `src/emails`.
-const compileEmail = (filename) => {
-  fs.readdirSync('src/emails').forEach((file) => {
-    if (file.endsWith('.hbs')) {
-      const partial = fs.readFileSync(`src/emails/${file}`, 'utf8')
-        .replace(/{{/g, '\\{{')
-        .replace(/\\{{(#block|\/block)/g, '{{$1');
-      handlebars.registerPartial(file.substr(0, file.length - 4), partial);
-    }
-  });
-  const template = fs.readFileSync(filename, 'utf8')
-    .replace(/{{/g, '\\{{')
-    .replace(/\\{{(#extend|\/extend|#content|\/content)/g, '{{$1');
-  return handlebars.precompile(juice(handlebars.compile(template)({})));
-};
-
 module.exports = task('build', ({ watch = false, onComplete } = {}) => new Promise((resolve) => {
   let ready = false;
 
