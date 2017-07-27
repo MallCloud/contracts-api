@@ -1,6 +1,7 @@
 version: '3'
 
 services:
+
   # Nginx web server acting as a reverse proxy for "web" and "api" services
   nginx:
     image: nginx:1.13.1-alpine
@@ -67,7 +68,6 @@ services:
     volumes:
       - redis:/data
     user: redis
-
 
 volumes:
   db:
