@@ -18,7 +18,7 @@
 Just clone the repo and run `docker-compose up`:
 
 ```bash
-git clone https://github.com/kriasoft/nodejs-api-starter.git example-api
+git clone https://github.com/MallCloud/contracts-api
 cd example-api                  # Change current directory to the newly created one
 docker-compose up               # Launch Docker containers with the Node.js API app running inside
 yarn docker-db-seed             # Seed the database with some test data
