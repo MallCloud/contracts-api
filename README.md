@@ -106,18 +106,11 @@ node tools/publish <host>       # where <host> is the name of your web server (s
 ├── /migrations/                # Database schema migrations
 ├── /seeds/                     # Scripts with reference/sample data
 ├── /src/                       # Node.js application source files
-│   ├── /emails/                # Handlebar templates for sending transactional email
 │   ├── /routes/                # Express routes, e.g. /login/facebook
 │   ├── /schema/                # GraphQL schema, types, fields and mutations
-│   │   ├── /Node.js            # Relay's "node" definitions
-│   │   ├── /User.js            # User related top-level fields and mutations
-│   │   ├── /UserType.js        # User type, representing a user account (id, emails, etc.)
-│   │   ├── /...                # etc.
 │   │   └── /index.js           # Exports GraphQL schema object
 │   ├── /app.js                 # Express.js application
-│   ├── /DataLoaders.js         # Data access utility for GraphQL /w batching and caching
 │   ├── /db.js                  # Database access and connection pooling (via Knex)
-│   ├── /email.js               # Client utility for sending transactional email
 │   ├── /passport.js            # Passport.js authentication strategies
 │   ├── /redis.js               # Redis client
 │   └── /server.js              # Node.js server (entry point)
@@ -128,4 +121,3 @@ node tools/publish <host>       # where <host> is the name of your web server (s
 ├── Dockerfile                  # Commands for building a Docker image for production
 └── package.json                # The list of project dependencies
 ```
-
