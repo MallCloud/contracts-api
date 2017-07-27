@@ -10,8 +10,7 @@
 
 ### Prerequisites
 
-* [Docker][docker] Community Edition v17 or higher
-* [VS Code][code] editor (preferred) + Project Snippets, EditorConfig, ESLint and Flow plug-ins.
+* [Docker](https://www.docker.com/community-edition) Community Edition v17 or higher
 
 
 ### Getting Started
