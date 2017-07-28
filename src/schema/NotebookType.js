@@ -2,12 +2,12 @@
 
 import { GraphQLObjectType, GraphQLList, GraphQLNonNull, GraphQLInt, GraphQLString, GraphQLFloat, GraphQLBoolean } from 'graphql';
 import { globalIdField } from 'graphql-relay';
-import noderInterface from './Node';
+import { nodeInterface } from './Node';
 import UserType from './UserType';
 
 export default new GraphQLObjectType ({
   name: 'Notebook',
-  interfaces: [noderInterface],
+  interfaces: [nodeInterface],
 
   fields: {
     id: globalIdField(),
@@ -59,7 +59,7 @@ export default new GraphQLObjectType ({
     },
 
     base_id: {
-      type: globalIdField(),
+      type: new GraphQLNonNull(GraphQLString),
     },
 
     hash_key: {
