@@ -25,6 +25,8 @@ import PrettyError from 'pretty-error';
 import { printSchema } from 'graphql';
 import redis from './redis';
 import passport from './passport';
+import schema from './schema';
+import DataLoaders from './DataLoaders';
 import accountRoutes from './routes/account';
 
 i18next
@@ -73,11 +75,29 @@ app.use(flash());
 app.use(accountRoutes);
 
 /**
- *
  * add schema for graphql
- *
- *
  */
+
+ app.get('/graphql/schema', (req, res) => {
+   res.type('text/plain').send(printSchema(schema));
+ });
+
+ app.use('/graphql', expressGraphQL(req => ({
+  schema,
+  context: {
+    t: req.t,
+    user: req.user,
+    ...DataLoaders.create(),
+  },
+  graphiql: process.env.NODE_ENV !== 'production',
+  pretty: process.env.NODE_ENV !== 'production',
+  formatError: error => ({
+    message: error.message,
+    state: error.originalError && error.originalError.state,
+    locations: error.locations,
+    path: error.path,
+  }),
+})));
 
 // The following routes are intended to be used in development mode only
 if (process.env.NODE_ENV !== 'production') {
