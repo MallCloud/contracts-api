@@ -53,7 +53,21 @@ export default new GraphQLObjectType ({
       type: new GraphQLNonNull(GraphQLString),
     },
 
+    base_id: {
+      type: globalIdField(),
+    },
 
+    hash_key: {
+      type: new GraphQLNonNull(GraphQLString),
+    },
+
+    req_gpu: {
+      type: GraphQLBoolean,
+    },
+
+    size: {
+      type: GraphQLFloat,
+    }
 
   }
 });
