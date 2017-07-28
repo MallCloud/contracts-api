@@ -9,6 +9,6 @@ export default new GraphQLObjectType ({
 	interfaces: [ nodeInterface ],
 
 	fields: {
-
+		id: globalIdField(),
 	},
 });
