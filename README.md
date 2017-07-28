@@ -20,6 +20,9 @@
   <a href="https://codeclimate.com/github/MallCloud/contracts-api">
     <img src="https://codeclimate.com/github/MallCloud/contracts-api/badges/issue_count.svg" alt="issue count">
   </a>  
+  <a href="https://travis-ci.org/MallCloud/contracts-api"
+    <img src="https://travis-ci.org/MallCloud/contracts-api.svg?branch=master" alt="build">
+  </a>
 
 </p>
 
