@@ -6,3 +6,8 @@ import { fromGlobalId, mutationWithClientMutationId } from 'graphql-relay';
 
 import db from '../db';
 import User from './User';
+
+
+export const user = {
+	type: UserType,
+}

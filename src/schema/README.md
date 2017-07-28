@@ -4,15 +4,19 @@
 import { GraphQLSchema, GraphQLObjectType } from 'graphql';
 
 import { user } from './User';
-import {  } from './Node';
-import {  } from './Notebook';
-import {  } from './Data';
+import { node, nodes } from './Node';
+import { notebook } from './Notebook';
+import { data } from './Data';
 
 export default new GraphQLSchema({
   query: new GraphQLObjectType({
     name: 'Query',
     fields: {
-      user
+      user,
+      node,
+      nodes,
+      notebook,
+      data
     },
   }),
   mutation: new GraphQLObjectType({
@@ -22,6 +26,7 @@ export default new GraphQLSchema({
     },
   }),
 });
+
 ```
 
 ### Top Level Fields

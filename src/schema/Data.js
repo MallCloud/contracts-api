@@ -6,3 +6,8 @@ import { fromGlobalId, mutationWithClientMutationId } from 'graphql-relay';
 
 import db from '../db';
 import DataType from './DataType';
+
+
+export const data = {
+	type: DataType,
+}
