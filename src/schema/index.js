@@ -27,10 +27,10 @@ export default new GraphQLSchema({
       data
     },
   }),
-  mutation: new GraphQLObjectType({
-    name: 'Mutation',
-    fields: {
-
-    },
-  }),
+  // mutation: new GraphQLObjectType({
+  //   name: 'Mutation',
+  //   fields: {
+  //
+  //   },
+  // }),
 });
