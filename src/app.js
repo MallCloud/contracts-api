@@ -87,7 +87,7 @@ app.use(accountRoutes);
   context: {
     t: req.t,
     user: req.user,
-    ...DataLoaders.create(),
+    // ...DataLoaders.create(),
   },
   graphiql: process.env.NODE_ENV !== 'production',
   pretty: process.env.NODE_ENV !== 'production',
