@@ -28,11 +28,11 @@ export default new GraphQLObjectType ({
 		},
 
 		notebooks: {
-			type: new GraphQLList(),
+			type: new GraphQLList(GraphQLString),
 		},
 
 		data: {
-			type: new GraphQLList(),
+			type: new GraphQLList(GraphQLString),
 		}
 	},
 });
