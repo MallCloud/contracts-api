@@ -46,7 +46,7 @@ var RestAPIConnector = {
         finally {
             // handle Exception
         }
-    }
+    },
 
     getJSONFromRelativeURL: function (relativeURL, info) {
         return fetch(`${api_url}${relativeURL}`, {
@@ -57,21 +57,21 @@ var RestAPIConnector = {
             }
         })
         .then(res => res.json());
-    }
+    },
 
     getUsers: function () {
         return getJSONFromRelativeURL('/api/users/')
             .then(json => json.users);
-    }
+    },
 
     getUser: function (id, info) {
         return getUserByURL(`/api/users/${id}/`, info);
-    }
+    },
 
     getUserByURL: function (relativeURL, info) {
         return getJSONFromRelativeURL(relativeURL, info)
             .then(json => json.user);
-    }
+    },
 
 };
 
