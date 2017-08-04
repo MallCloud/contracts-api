@@ -15,7 +15,11 @@ import {
 } from 'graphql';
 
 import { user } from './User';
-import { node, nodes } from './Node';
+import {
+    nodeField,
+    nodesField
+} from './Node';
+
 import { notebook } from './Notebook';
 import { data } from './Data';
 
@@ -24,8 +28,8 @@ export default new GraphQLSchema({
     name: 'Query',
     fields: {
       user,
-      node,
-      nodes,
+      nodeField,
+      nodesField,
       notebook,
       data
     },

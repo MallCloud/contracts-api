@@ -4,7 +4,7 @@
 import { GraphQLSchema, GraphQLObjectType } from 'graphql';
 
 import { user } from './User';
-import { node, nodes } from './Node';
+import { nodeField, nodesField } from './Node';
 import { notebook } from './Notebook';
 import { data } from './Data';
 

@@ -7,13 +7,17 @@ import {
 } from 'graphql-relay';
 
 
-const { nodeInterface, nodeField: node, nodesField: nodes } = nodeDefinitions(
-  (globalId, context) => {
+const {
+    nodeField,
+    nodesField,
+    nodeInterface,
+} = nodeDefinitions(
+  (globalId, {loaders}) => {
     const { type, id } = fromGlobalId(globalId);
 
-    if (type === 'Data') return context.data.load(id);
-    if (type === 'Notebook') return context.notebook.load(id);
-    if (type === 'User') return context.user.load(id);
+    if (type === 'Data') return loaders.data.load(id);
+    if (type === 'Notebook') return loaders.notebook.load(id);
+    if (type === 'User') return loaders.user.load(id);
 
     return null;
   },
@@ -26,4 +30,4 @@ const { nodeInterface, nodeField: node, nodesField: nodes } = nodeDefinitions(
   },
 );
 
-export { nodeInterface, node, nodes };
+export { nodeInterface, nodeField, nodesField };
