@@ -75,7 +75,8 @@ function getUserByURL(relativeURL) {
 app.use(graphqlHTTP(req => {
 
     const cacheMap = new Map();
-
+    // receive token for the rest of the process
+    getTokenForAuth();
     const usersLoader =
         new DataLoader(keys => Promise.all(keys.map(getUsers)), {cacheMap});
 
