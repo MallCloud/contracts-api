@@ -1,7 +1,10 @@
 /* @flow */
 /* eslint-disable global-require, no-underscore-dangle */
 
-import { nodeDefinitions, fromGlobalId } from 'graphql-relay';
+import {
+    nodeDefinitions,
+    fromGlobalId
+} from 'graphql-relay';
 
 
 const { nodeInterface, nodeField: node, nodesField: nodes } = nodeDefinitions(

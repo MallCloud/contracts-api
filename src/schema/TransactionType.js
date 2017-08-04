@@ -1,6 +1,14 @@
 /* @flow */
 
-import { GraphQLObjectType, GraphQLList, GraphQLNonNull, GraphQLInt, GraphQLString, GraphQLFloat } from 'graphql';
+import {
+    GraphQLObjectType,
+    GraphQLList,
+    GraphQLNonNull,
+    GraphQLInt,
+    GraphQLString,
+    GraphQLFloat
+} from 'graphql';
+
 import { globalIdField } from 'graphql-relay';
 import { nodeInterface } from './Node';
 import UserType from './UserType';

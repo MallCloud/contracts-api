@@ -9,7 +9,10 @@
 
 /* @flow */
 
-import { GraphQLSchema, GraphQLObjectType } from 'graphql';
+import {
+    GraphQLSchema,
+    GraphQLObjectType
+} from 'graphql';
 
 import { user } from './User';
 import { node, nodes } from './Node';
