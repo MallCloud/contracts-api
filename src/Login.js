@@ -50,6 +50,19 @@ export function CreateloginContract(challenge) {
 }
 
 
+/*
+ * Login attempt event handling.
+ */
+var LoginAttemptEvent = LoginContractInstance.LoginAttempt({ sender: 'args', challenge: '' }, { fromBlock: 0, toBlock: 'latest' });
+
+LoginAttemptEvent.watch(function (error, result) {
+    if (!error)
+        console.log(result);
+});
+
+// would get all past logs again.
+var LoginAttemptResults = LoginAttemptEvent.get(function (error, logs) { console.log(logs); });
+
 
 
 
