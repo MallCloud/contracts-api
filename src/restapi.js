@@ -11,92 +11,68 @@ const restapi_host = process.env.RESTAPIHOST || '35.193.0.206';
 const restapi_port = process.env.RESTAPIPORT || '8000';
 
 const api_url = restapi_host + ':' + restapi_port;
-var auth_token = '';
 
-/**
- * receive Token from REST API
- * @params {[string, string]} [username: xxx, password: yyy]
- * @return {[json-string]} [token]
- */
-function getTokenForAuth(info) {
-    try {
-        auth_token =
-            fetch(api_url + '/api/api-token/', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                    'X-CSRFToken': 'EbtU1Lruhi0ZG09flLkTa5R6uO5Tbs58VxLgE6Y3MofDtJlx9JM3TcNrEYGLSpgB'
-                },
-                body: {username: info.username, password: info.password}
-            })
-            .then(res => res.json())
-            .then(json => json.token)
-            .then(function(token) {
-                auth_token = token;
-            })
-    }
+var RestAPIConnector = {
 
-    catch (e) {
-        console.log('[-] Error: Token Not Received');
-        console.log('[!] Exception: ' + e);
-    }
-
-    finally {
-        // handle Exception
-    }
-}
-
-function getJSONFromRelativeURL(relativeURL) {
-    return fetch(`${api_url}${relativeURL}`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-			'Authorization': 'Token ' + auth_token,
+    /**
+     * receive Token from REST API
+     * @params {[string, string]} [username: xxx, password: yyy]
+     * @return {[json-string]} [token]
+     */
+    getTokenForAuth: function (info) {
+        try {
+            return
+                fetch(api_url + '/api/api-token/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                        'X-CSRFToken': 'EbtU1Lruhi0ZG09flLkTa5R6uO5Tbs58VxLgE6Y3MofDtJlx9JM3TcNrEYGLSpgB'
+                    },
+                    body: {username: info.username, password: info.password}
+                })
+                .then(res => res.json())
+                .then(json => json.token)
+                .then(function(token) {
+                    auth_token = token;
+                })
         }
-    })
-    .then(res => res.json());
-}
 
-function getUsers() {
-    return getJSONFromRelativeURL('/api/users/')
-        .then(json => json.users);
-}
+        catch (e) {
+            console.log('[-] Error: Token Not Received');
+            console.log('[!] Exception: ' + e);
+        }
 
-function getUser(id) {
-    return getUserByURL(`/api/users/${id}/`);
-}
+        finally {
+            // handle Exception
+        }
+    }
 
-function getUserByURL(relativeURL) {
-    return getJSONFromRelativeURL(relativeURL)
-        .then(json => json.user);
-}
+    getJSONFromRelativeURL: function (relativeURL, info) {
+        return fetch(`${api_url}${relativeURL}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+    			'Authorization': 'Token ' + getTokenForAuth(info),
+            }
+        })
+        .then(res => res.json());
+    }
 
-app.use(graphqlHTTP(req => {
+    getUsers: function () {
+        return getJSONFromRelativeURL('/api/users/')
+            .then(json => json.users);
+    }
 
-    const cacheMap = new Map();
-    // receive token for the rest of the process
-    getTokenForAuth();
-    const usersLoader =
-        new DataLoader(keys => Promise.all(keys.map(getUsers)), {cacheMap});
+    getUser: function (id, info) {
+        return getUserByURL(`/api/users/${id}/`, info);
+    }
 
-    const userLoader =
-        new DataLoader(keys => Promise.all(keys.map(getUser)), {
-            cacheKeyFn: key => `/users/${key}`,
-            cacheMap
-        });
+    getUserByURL: function (relativeURL, info) {
+        return getJSONFromRelativeURL(relativeURL, info)
+            .then(json => json.user);
+    }
 
-    const userByURLLoader =
-        new DataLoader(keys => Promise.all(keys.map(getUserByURL)), {cacheMap});
+};
 
-    userLoader.loadAll = usersLoader.load.bind(usersLoader, '__all__');
-	userLoader.loadByURL = userByURLLoader.load.bind(userByURLLoader);
-	userLoader.loadManyByURL = userByURLLoader.loadMany.bind(userByURLLoader);
-	const loaders = {user: userLoader};
-
-    return {
-        context: {loaders},
-        graphiql: true,
-        UserQuery
-    };
-}));
+export default RestAPIConnector;

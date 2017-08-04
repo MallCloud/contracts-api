@@ -28,6 +28,7 @@ import passport from './passport';
 import schema from './schema';
 import DataLoaders from './DataLoaders';
 import accountRoutes from './routes/account';
+import RestAPIConnector from './restapi';
 
 i18next
   .use(LanguageDetector)
@@ -98,6 +99,34 @@ app.use(accountRoutes);
     path: error.path,
   }),
 })));
+
+app.use(graphqlHTTP(req => {
+
+    const cacheMap = new Map();
+    // receive token for the rest of the process
+    const usersLoader =
+        new DataLoader(keys => Promise.all(keys.map(RestAPIConnector.getUsers)), {cacheMap});
+
+    const userLoader =
+        new DataLoader(keys => Promise.all(keys.map(RestAPIConnector.getUser)), {
+            cacheKeyFn: key => `/users/${key}`,
+            cacheMap
+        });
+
+    const userByURLLoader =
+        new DataLoader(keys => Promise.all(keys.map(RestAPIConnector.getUserByURL)), {cacheMap});
+
+    userLoader.loadAll = usersLoader.load.bind(usersLoader, '__all__');
+    userLoader.loadByURL = userByURLLoader.load.bind(userByURLLoader);
+    userLoader.loadManyByURL = userByURLLoader.loadMany.bind(userByURLLoader);
+    const loaders = {user: userLoader};
+
+    return {
+        context: {loaders},
+        graphiql: true,
+        UserQuery
+    };
+}));
 
 // The following routes are intended to be used in development mode only
 if (process.env.NODE_ENV !== 'production') {
