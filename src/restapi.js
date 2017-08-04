@@ -1,6 +1,5 @@
 import { DataLoader } from 'dataloader';
 import { fetch } from 'node-fetch';
-import { graphqlHTTP } from 'express-graphql';
 import app from './app';
 import redis from './redis';
 import request from 'request';

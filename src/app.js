@@ -20,7 +20,7 @@ import flash from 'express-flash';
 import i18next from 'i18next';
 import i18nextMiddleware, { LanguageDetector } from 'i18next-express-middleware';
 import i18nextBackend from 'i18next-node-fs-backend';
-import expressGraphQL from 'express-graphql';
+import expressGraphQL, graphqlHTTP from 'express-graphql';
 import PrettyError from 'pretty-error';
 import { printSchema } from 'graphql';
 import redis from './redis';
