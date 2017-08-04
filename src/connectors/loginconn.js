@@ -30,4 +30,4 @@ var LoginConnectionInstance = {
 
 };
 
-export default LoginContractInstance;
+export default LoginConnectionInstance;
