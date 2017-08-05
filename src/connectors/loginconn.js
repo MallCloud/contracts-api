@@ -27,6 +27,21 @@ var LoginConnectionInstance = {
             // cleanup
         }
     },
+  
+   /*
+    * Login attempt event handling wire up.
+    */
+    LoginAttemptEventWiringUp: function (senderArgs, challenge) {        
+        var LoginAttemptEvent = LoginConnectionInstance.LoginAttempt({ sender: senderArgs, challenge: challenge },
+                                                                     { fromBlock: 0, toBlock: 'latest' });
+        LoginAttemptEvent.watch(function (error, result) {
+            if (!error)
+                console.log(result);
+        });
+
+        // would get all past logs again.
+        var LoginAttemptResults = LoginAttemptEvent.get(function (error, logs) { console.log(logs); });
+    }
 
 };
 
