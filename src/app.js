@@ -30,6 +30,8 @@ import schema from './schema';
 import DataLoaders from './DataLoaders';
 import accountRoutes from './routes/account';
 import RestAPIConnector from './restapi';
+import UserQueryType from './schema/UserQueryType';
+
 
 i18next
   .use(LanguageDetector)
@@ -104,7 +106,7 @@ app.use(accountRoutes);
 app.use(graphqlHTTP(req => {
 
     const cacheMap = new Map();
-    // receive token for the rest of the process
+
     const usersLoader =
         new DataLoader(keys => Promise.all(keys.map(RestAPIConnector.getUsers)), {cacheMap});
 
@@ -125,7 +127,7 @@ app.use(graphqlHTTP(req => {
     return {
         context: {loaders},
         graphiql: true,
-        UserQuery
+        UserQueryType
     };
 }));
 

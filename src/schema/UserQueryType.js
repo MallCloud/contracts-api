@@ -5,6 +5,8 @@ import {
     GraphQLList,
     GraphQLNonNull,
     GraphQLID,
+    GraphQLString,
+    GraphQLSchema,
 } from 'graphql';
 
 import {
@@ -16,7 +18,7 @@ import {
 import { nodeField } from './Node';
 import UserType from './UserType';
 
-export default new GraphQLObjectType({
+const UserQueryType = new GraphQLObjectType({
 
     name: 'UserQuery',
     description: '...',
@@ -30,10 +32,16 @@ export default new GraphQLObjectType({
         user: {
             type: UserType,
             args: {
-                type: new GraphQLNonNull(GraphQLID),
+                id: {type: GraphQLID},
+                username: {type: GraphQLString},
+                password: {type: GraphQLString},
             },
-            resolve: (root, args, {loaders}) => loaders.user.load(args.username)
+            resolve: (root, args, {loaders}) => loaders.user.load(args.id)
         },
     }),
 
+});
+
+export default new GraphQLSchema({
+    query: UserQueryType,
 });

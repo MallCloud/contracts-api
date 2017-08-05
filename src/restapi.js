@@ -3,7 +3,6 @@ import { fetch } from 'node-fetch';
 import app from './app';
 import redis from './redis';
 import request from 'request';
-import UserQuery from './schema/UserQuery';
 
 
 const restapi_host = process.env.RESTAPIHOST || '35.193.0.206';
