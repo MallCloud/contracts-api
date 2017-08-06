@@ -7,7 +7,8 @@ import {
     GraphQLInt,
     GraphQLString,
     GraphQLFloat,
-    GraphQLBoolean
+    GraphQLBoolean,
+    GraphQLID,
 } from 'graphql';
 
 import { globalIdField } from 'graphql-relay';
@@ -15,81 +16,112 @@ import { nodeInterface } from './Node';
 import UserType from './UserType';
 
 export default new GraphQLObjectType ({
-  name: 'Data',
-  interfaces: [nodeInterface],
+    name: 'Data',
+    interfaces: [nodeInterface],
 
-  fields: {
-    id: globalIdField(),
+    fields: () => ({
+        id: globalIdField(),
 
-    title: {
-      type: new GraphQLNonNull(GraphQLString),
-    },
+        user: {
+            type: GraphQLID,
+            resolve(obj, args, {loaders}) {
+                // return users.load(obj.author_id);
+            },
+        },
 
-    author: {
-      type: new GraphQLNonNull(UserType),
-      resolve(parent, args, { users }) {
-        return users.load(parent.author_id);
-      },
-    },
+        type: {
+            type: GraphQLInt,
+            resolve(obj) {
+                return obj.type;
+            }
+        },
 
-    url: {
-      type: new GraphQLNonNull(GraphQLString),
-    },
+        price: {
+            type: GraphQLFloat,
+            resolve(obj) {
+                return obj.price;
+            }
+        },
 
-    createdAt: {
-      type: new GraphQLNonNull(GraphQLString),
-      resolve(parent) {
-        return parent.created_at;
-      },
-    },
+        accessParameters: {
+            type: GraphQLString,
+            resolve(obj) {
+                return obj.accessparameters;
+            }
+        },
 
-    updatedAt: {
-      type: new GraphQLNonNull(GraphQLString),
-      resolve(parent) {
-        return parent.updated_at;
-      },
-    },
+        rating:  {
+            type: GraphQLInt,
+            resolve(obj) {
+                return obj.rating;
+            }
+        },
 
-    descr: {
-      type: GraphQLString,
-    },
+        description: {
+            type: GraphQLString,
+            resolve(obj) {
+                return obj.description;
+            },
+        },
 
-    /**
-     * Possible Access Types:
-     * 1. Open : {open}
-     * 2. Closed : {close}
-     * 3. Restricted : {rest}
-     */
-    access_type: {
-      type: new GraphQLNonNull(GraphQLString),
-    },
+        datafields: {
+            type: new GraphQLList(GraphQLString),
+            resolve(obj) {
+                return obj.datafields;
+            },
+        },
 
-    base_id: {
-      type: new GraphQLNonNull(GraphQLString),
-    },
+        datasetGraphID: {
+            type: GraphQLID,
+            resolve(obj) {
+                return obj.data_set_graph_id;
+            },
+        },
 
-    checksum: {
-      type: new GraphQLNonNull(GraphQLString),
-    },
+        files:  {
+            type: GraphQLInt,
+            resolve(obj) {
+                return obj.file;
+            },
+        },
 
-    size: {
-      type: GraphQLFloat,
-    },
+        createdAt: {
+            type: new GraphQLNonNull(GraphQLString),
+            resolve(obj) {
+                return obj.created_at;
+            },
+        },
 
-    /**
-     * Possible Types are :
-     * 1. Original Dataset : orig
-     * 2. Canonical Dataset : canon
-     * 3. Generated Dataset : gen
-     */
-    type: {
-      type: new GraphQLNonNull(GraphQLString),
-    },
+        updatedAt: {
+            type: new GraphQLNonNull(GraphQLString),
+            resolve(obj) {
+                return obj.updated_at;
+            },
+        },
 
-    price: {
-      type: GraphQLFloat,
-    },
+        /**
+        * Possible Access Types:
+        * 1. Open : {open}
+        * 2. Closed : {close}
+        * 3. Restricted : {rest}
+        */
+        // [!] not available right now
+        // access_ type: {
+        //     type: new GraphQLNonNull(GraphQLString),
+        // },
+        //
+        // base_id: {
+        //     type: new GraphQLNonNull(GraphQLString),
+        // },
+        //
+        // checksum: {
+        //     type: new GraphQLNonNull(GraphQLString),
+        // },
+        //
+        // size: {
+        //     type: GraphQLFloat,
+        // },
 
-  }
+    })
 
 });
