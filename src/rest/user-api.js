@@ -8,21 +8,7 @@ const restapi_port = process.env.RESTAPIPORT || '8000';
 
 const api_url = 'http://' + restapi_host + ':' + restapi_port;
 
-function getTokenForAuth(info) {
-    return fetch(api_url + '/api/api-token/', {
-        method: 'POST',
-        body: JSON.stringify(info),
-
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            'X-CSRFToken': 'EbtU1Lruhi0ZG09flLkTa5R6uO5Tbs58VxLgE6Y3MofDtJlx9JM3TcNrEYGLSpgB'
-        }
-    })
-    .then(function(res) {
-        return res.json();
-    })
-}
+import { getTokenForAuth } from './token';
 
 function getJSONFromRelativeURL(relativeURL, info) {
     return getTokenForAuth(info)
@@ -41,6 +27,5 @@ function getJSONFromRelativeURL(relativeURL, info) {
 }
 
 module.exports = {
-    getTokenForAuth,
     getJSONFromRelativeURL,
 };

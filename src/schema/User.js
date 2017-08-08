@@ -12,7 +12,6 @@ import {
 import { UserType } from './UserType';
 
 import {
-    getTokenForAuth,
     getJSONFromRelativeURL,
 } from '../rest/user-api';
 
