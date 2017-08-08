@@ -1,12 +1,3 @@
-/**
- * Node.js API Starter Kit (https://reactstarter.com/nodejs)
- *
- * Copyright © 2016-present Kriasoft, LLC. All rights reserved.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE.txt file in the root directory of this source tree.
- */
-
 /* @flow */
 /* eslint-disable no-console, no-shadow */
 
@@ -28,8 +19,12 @@ function handleExit(options, err) {
     const actions = [server.close, db.destroy, redis.quit];
     actions.forEach((close, i) => {
       try {
-        close(() => { if (i === actions.length - 1) process.exit(); });
-      } catch (err) { if (i === actions.length - 1) process.exit(); }
+        close(() => {
+          if (i === actions.length - 1) process.exit();
+        });
+      } catch (err) {
+        if (i === actions.length - 1) process.exit();
+      }
     });
   }
   if (err) console.log(err.stack);

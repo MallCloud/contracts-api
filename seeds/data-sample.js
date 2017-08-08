@@ -2,6 +2,4 @@
 
 const faker = require('faker');
 
-module.exports.seed = async db => {
-
-};
+module.exports.seed = async db => {};
