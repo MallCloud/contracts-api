@@ -19,7 +19,7 @@ var LoginConnectionInstance = {
             const LoginConnector = web3.eth.contract(loginAbi);
         }
 
-        catch (e) {
+        catch (ex) {
             console.error("Could not connect to login contract. Error: ", ex);
         }
 
