@@ -9,10 +9,10 @@ import {
     GraphQLNonNull,
 } from 'graphql';
 
-import { NotebookType } from './NotebookType';
+import { DatasetType } from './DatasetType';
 
-export const notebookQuery = {
-    type: NotebookType,
+export const datasetQuery = {
+    type: DatasetType,
     args: {
         id: {type: new GraphQLNonNull(GraphQLID)},
 	},

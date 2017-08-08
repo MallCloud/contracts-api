@@ -1,32 +1,25 @@
-## GraphQL Schema
+# GraphQL Schema
 
-```
+```js
 import { GraphQLSchema, GraphQLObjectType } from 'graphql';
 
-import { user } from './User';
-import { nodeField, nodesField } from './Node';
-import { notebook } from './Notebook';
-import { data } from './Data';
+import { userQuery } from './User';
+import { node, nodes } from './Node';
+import { notebookQuery } from './Notebook';
+import { datasetQuery } from './Data';
 
 export default new GraphQLSchema({
   query: new GraphQLObjectType({
     name: 'Query',
     fields: {
-      user,
+      userQuery,
+      notebookQuery,
+      datasetQuery,
       node,
       nodes,
-      notebook,
-      data
-    },
-  }),
-  mutation: new GraphQLObjectType({
-    name: 'Mutation',
-    fields: {
-
     },
   }),
 });
-
 ```
 
 ### Top Level Fields

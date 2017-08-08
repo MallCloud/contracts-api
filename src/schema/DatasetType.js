@@ -15,14 +15,22 @@ import { nodeInterface } from './Node';
 
 import UserType from './UserType';
 
-export const NotebookType = new GraphQLObjectType({
-    name: 'Notebook',
+export const DatasetType = new GraphQLObjectType({
+    name: 'Dataset',
     interfaces: [nodeInterface],
 
     fields: () => ({
-        id: globalIdField('Notebook'),
+        id: globalIdField('Dataset'),
 
-        type: {
+		// user: {
+        //     type: UserType,
+        //     description: '...',
+        //     resolve(obj) {
+        //         return obj.user;
+        //     },
+        // },
+
+		type: {
             type: GraphQLInt,
             description: '...',
             resolve(obj) {
@@ -30,7 +38,7 @@ export const NotebookType = new GraphQLObjectType({
             },
         },
 
-        price: {
+		price: {
             type: GraphQLFloat,
             description: '...',
             resolve(obj) {
@@ -38,7 +46,7 @@ export const NotebookType = new GraphQLObjectType({
             },
         },
 
-        accessParameters: {
+		accessParameters: {
             type: new GraphQLList(GraphQLString),
             description: '...',
             resolve(obj) {
@@ -46,7 +54,15 @@ export const NotebookType = new GraphQLObjectType({
             },
         },
 
-        description: {
+		rating: {
+			type: GraphQLInt,
+            description: '...',
+            resolve(obj) {
+                return obj.rating;
+            },
+		},
+
+		description: {
             type: GraphQLString,
             description: '...',
             resolve(obj) {
@@ -54,47 +70,23 @@ export const NotebookType = new GraphQLObjectType({
             },
         },
 
-        modelGraphID: {
+		datasetGraphID: {
             type: GraphQLInt,
             description: '...',
             resolve(obj) {
-                return obj.model_graph_id;
+                return obj.data_set_graph_id;
             },
         },
 
-        language: {
-            type: GraphQLString,
+		file: {
+			type: GraphQLInt,
             description: '...',
             resolve(obj) {
-                return obj.language;
+                return obj.file;
             },
-        },
+		},
 
-        // author: {
-        //     type: new GraphQLNonNull(UserType),
-        //     description: '...',
-        //     resolve(obj) {
-        //         return obj.author;
-        //     },
-        // },
-
-        ensemble: {
-            type: GraphQLString,
-            description: '...',
-            resolve(obj) {
-                return obj.ensemble;
-            },
-        },
-
-        metaEnsemble: {
-            type: GraphQLString,
-            description: '...',
-            resolve(obj) {
-                return obj.metaensemble;
-            },
-        },
-
-        createdAt: {
+		createdAt: {
             type: new GraphQLNonNull(GraphQLString),
             resolve(parent) {
                 return parent.created_at;

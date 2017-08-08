@@ -6,41 +6,89 @@ import {
 	GraphQLNonNull,
 	GraphQLInt,
 	GraphQLString,
-	GraphQLFloat
+	GraphQLFloat,
+    GraphQLBoolean,
 } from 'graphql';
 
 import { globalIdField } from 'graphql-relay';
 import { nodeInterface } from './Node';
 
-export default new GraphQLObjectType ({
-	name: 'User',
-	interfaces: [ nodeInterface ],
+export const UserType = new GraphQLObjectType({
+    name: 'User',
+    interfaces: [nodeInterface],
 
-	fields: {
-		id: globalIdField(),
+    fields: () => ({
+        id: globalIdField('User'),
 
-		profileName: {
-			type: GraphQLString,
-		},
+        username: {
+            type: GraphQLString,
+            description: '...',
+            resolve: obj => obj.username,
+        },
 
-		commissionRate: {
-			type: new GraphQLNonNull(GraphQLFloat),
-		},
+        email: {
+            type: GraphQLString,
+            description: '...',
+            resolve(obj) {
+                return obj.email;
+            },
+        },
 
-		numberTransaction: {
-			type: new GraphQLNonNull(GraphQLInt),
-		},
+        firstName: {
+            type: GraphQLString,
+            description: '...',
+            resolve(obj) {
+                return obj.first_name;
+            },
+        },
 
-		rating: {
-			type: GraphQLInt,
-		},
+        lastName: {
+            type: GraphQLString,
+            description: '...',
+            resolve(obj) {
+                return obj.last_name;
+            },
+        },
 
-		notebooks: {
-			type: new GraphQLList(GraphQLString),
-		},
+        type: {
+            type: GraphQLInt,
+            description: '...',
+            resolve(obj) {
+                return obj.type;
+            },
+        },
 
-		data: {
-			type: new GraphQLList(GraphQLString),
-		}
-	},
+        isStaff: {
+            type: GraphQLBoolean,
+            description: '...',
+            resolve(obj) {
+                return obj.is_staff;
+            },
+        },
+
+        experience: {
+            type: new GraphQLList(GraphQLString),
+            description: '...',
+            resolve(obj) {
+                return obj.experience;
+            },
+        },
+
+        specialSkills: {
+            type: new GraphQLList(GraphQLString),
+            description: '...',
+            resolve(obj) {
+                return obj.special_skills;
+            },
+        },
+
+        blockchain_address: {
+            type: GraphQLString,
+            description: '...',
+            resolve(obj) {
+                return obj.blockchain_address;
+            },
+        },
+    }),
+
 });
