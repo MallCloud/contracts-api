@@ -13,8 +13,6 @@ import {
 import { globalIdField } from 'graphql-relay';
 import { nodeInterface } from './Node';
 
-import UserType from './UserType';
-
 export const NotebookType = new GraphQLObjectType({
     name: 'Notebook',
     interfaces: [nodeInterface],
@@ -70,13 +68,13 @@ export const NotebookType = new GraphQLObjectType({
             },
         },
 
-        // author: {
-        //     type: new GraphQLNonNull(UserType),
-        //     description: '...',
-        //     resolve(obj) {
-        //         return obj.author;
-        //     },
-        // },
+        author: {
+            type: GraphQLInt,
+            description: 'Returns an Author ID that can be used to fetch author data',
+            resolve(obj) {
+                return obj.author;
+            },
+        },
 
         ensemble: {
             type: GraphQLString,

@@ -13,8 +13,6 @@ import {
 import { globalIdField } from 'graphql-relay';
 import { nodeInterface } from './Node';
 
-import UserType from './UserType';
-
 export const DatasetType = new GraphQLObjectType({
     name: 'Dataset',
     interfaces: [nodeInterface],
@@ -22,13 +20,13 @@ export const DatasetType = new GraphQLObjectType({
     fields: () => ({
         id: globalIdField('Dataset'),
 
-		// user: {
-        //     type: UserType,
-        //     description: '...',
-        //     resolve(obj) {
-        //         return obj.user;
-        //     },
-        // },
+		user: {
+            type: GraphQLInt,
+            description: 'Returns an User ID that can be used to fetch user data',
+            resolve(obj) {
+                return obj.user;
+            },
+        },
 
 		type: {
             type: GraphQLInt,
