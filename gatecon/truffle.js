@@ -44,6 +44,13 @@ module.exports = {
       provider: engine, // Use our custom provider
       from: address,     // Use the address we derived
       gas: 3000000
+    },
+    rinkeby: {
+      network_id: 4,
+      host: '127.0.0.1',
+      port: 8545,
+      gas: 4000000,
+      from: ''
     }
   },
   rpc: {
