@@ -1,0 +1,199 @@
+{
+  "contract_name": "OrderTracker",
+  "abi": [
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "orderIndex",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "buyer",
+          "type": "address"
+        },
+        {
+          "name": "seller",
+          "type": "address"
+        },
+        {
+          "name": "DIN",
+          "type": "uint256"
+        },
+        {
+          "name": "info",
+          "type": "bytes32"
+        },
+        {
+          "name": "value",
+          "type": "uint256"
+        },
+        {
+          "name": "quantity",
+          "type": "uint256"
+        },
+        {
+          "name": "timestamp",
+          "type": "uint256"
+        }
+      ],
+      "name": "registerNewOrder",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "dinRegistry",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "name": "_dinRegistry",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "type": "constructor"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "orderID",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "name": "buyer",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "name": "seller",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "market",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "name": "DIN",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "name": "info",
+          "type": "bytes32"
+        },
+        {
+          "indexed": false,
+          "name": "value",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "name": "quantity",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "name": "timestamp",
+          "type": "uint256"
+        }
+      ],
+      "name": "NewOrder",
+      "type": "event"
+    }
+  ],
+  "unlinked_binary": "0x60606040526000600155341561001457600080fd5b6040516020806102bc833981016040528080519150505b60008054600160a060020a031916600160a060020a0383161790555b505b610264806100586000396000f300606060405263ffffffff7c010000000000000000000000000000000000000000000000000000000060003504166330471fee8114610053578063634fcd8d14610078578063d3bc4fb8146100be575b600080fd5b341561005e57600080fd5b6100666100ed565b60405190815260200160405180910390f35b341561008357600080fd5b610066600160a060020a036004358116906024351660443560643560843560a43560c4356100f3565b60405190815260200160405180910390f35b34156100c957600080fd5b6100d1610229565b604051600160a060020a03909116815260200160405180910390f35b60015481565b600080548690600160a060020a0333811691166328861d228385604051602001526040517c010000000000000000000000000000000000000000000000000000000063ffffffff84160281526004810191909152602401602060405180830381600087803b151561016357600080fd5b6102c65a03f1151561017457600080fd5b50505060405180519050600160a060020a031614151561019357600080fd5b600180548101908190558790600160a060020a03808b1691908c16907fdd902d7d9f3345950f8f953e8dc2eb6dc21adb3fd9a85e6c0ca57b92494f411f90338b8b8b8b604051958652600160a060020a0390941660208601526040808601939093526060850191909152608084015260a083019190915260c0909101905180910390a460015491505b5b50979650505050505050565b600054600160a060020a0316815600a165627a7a72305820a85e6f018ec60bb89df5eaa7e929c11196392ee6c851b922897b90eff3cf33550029",
+  "networks": {
+    "1502865611961": {
+      "events": {
+        "0xdd902d7d9f3345950f8f953e8dc2eb6dc21adb3fd9a85e6c0ca57b92494f411f": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "orderID",
+              "type": "uint256"
+            },
+            {
+              "indexed": true,
+              "name": "buyer",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "name": "seller",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "market",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "name": "DIN",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "name": "info",
+              "type": "bytes32"
+            },
+            {
+              "indexed": false,
+              "name": "value",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "name": "quantity",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "name": "timestamp",
+              "type": "uint256"
+            }
+          ],
+          "name": "NewOrder",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0xa9166f0160759c3694a92a7f0b2b568878ad627b",
+      "updated_at": 1502867014894
+    }
+  },
+  "schema_version": "0.0.5",
+  "updated_at": 1502867014894
+}
