@@ -12,7 +12,7 @@ var store = {};
 
 function checkStoreForValue(store) {
     if(store.hasOwnProperty('token')) {
-        if(store[token] !== null && store[token] !== undefined) {
+        if(store.token !== null && store.token !== undefined) {
             return true;
         }
 
@@ -42,13 +42,13 @@ function getTokenForAuth(info) {
             return res.json();
         })
         .then(function(res) {
-            store["token"] = res.token;
+            store.token = res.token;
             return res;
         })
     }
 
     else {
-        return store[token];
+        return store.token;
     }
 }
 

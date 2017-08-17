@@ -18,11 +18,11 @@ import {
     mutationWithClientMutationId,
 } from 'graphql-relay';
 
-import { NotebookType } from './NotebookType';
+import { APIType } from './APIType';
 import { ProductType } from './ProductType';
 
-const notebookQuery = {
-    type: NotebookType,
+const apiQuery = {
+    type: APIType,
     args: {
         id: {type: new GraphQLNonNull(GraphQLID)},
 	},
@@ -31,26 +31,31 @@ const notebookQuery = {
     },
 };
 
-const createNotebook = mutationWithClientMutationId ({
-    name: 'CreateNotebook',
-});
+const createAPI = mutationWithClientMutationId ({
+    name: 'CreateAPI',
+    type: ProductType,
+})
 
-const deleteNotebook = mutationWithClientMutationId ({
-    name: 'DeleteNotebook',
-});
+const deleteAPI = mutationWithClientMutationId ({
+    name: 'DeleteAPI',
+    type: ProductType,
+})
 
-const buyNotebook = mutationWithClientMutationId ({
-    name: 'BuyNotebook',
-});
+const buyAPI = mutationWithClientMutationId ({
+    name: 'BuyAPI',
+    type: ProductType,
+})
 
-const sellNotebook = mutationWithClientMutationId ({
-    name: 'SellNotebook',
-});
+const sellAPI = mutationWithClientMutationId ({
+    name: 'SellAPI',
+    type: ProductType,
+})
+
 
 module.exports = {
-    notebookQuery,
-    createNotebook,
-    deleteNotebook,
-    buyNotebook,
-    sellNotebook,
+    apiQuery,
+    createAPI,
+    deleteAPI,
+    buyAPI,
+    sellAPI,
 }

@@ -6,8 +6,31 @@ import {
 } from 'graphql';
 
 import { userQuery } from './User';
-import { notebookQuery } from './Notebook';
-import { datasetQuery } from './Dataset';
+
+import {
+    notebookQuery,
+    createNotebook,
+    deleteNotebook,
+    buyNotebook,
+    sellNotebook,
+} from './Notebook';
+
+import {
+    datasetQuery,
+    createDataset,
+    deleteDataset,
+    buyDataset,
+    sellDataset,
+} from './Dataset';
+
+import {
+    apiQuery,
+    createAPI,
+    deleteAPI,
+    buyAPI,
+    sellAPI,
+} from './API';
+
 import { node, nodes } from './Node';
 
 export default new GraphQLSchema({
@@ -21,4 +44,21 @@ export default new GraphQLSchema({
             nodes,
         },
     }),
+    mutation: new GraphQLObjectType({
+        name: 'Mutation',
+        fields: {
+            createNotebook,
+            deleteNotebook,
+            buyNotebook,
+            sellNotebook,
+            createDataset,
+            deleteDataset,
+            buyDataset,
+            sellDataset,
+            createAPI,
+            deleteAPI,
+            buyAPI,
+            sellAPI,
+        },
+  }),
 });

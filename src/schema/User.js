@@ -15,7 +15,7 @@ import {
     getJSONFromRelativeURL,
 } from '../rest/user-api';
 
-export const userQuery = {
+const userQuery = {
     type: UserType,
     args: {
         id: {type: new GraphQLNonNull(GraphQLID)},
@@ -31,3 +31,7 @@ export const userQuery = {
     	return getJSONFromRelativeURL(`/api/users/${args.id}`, info);
     },
 };
+
+module.exports = {
+    userQuery,
+}
