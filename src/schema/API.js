@@ -33,22 +33,18 @@ const apiQuery = {
 
 const createAPI = mutationWithClientMutationId ({
     name: 'CreateAPI',
-    type: ProductType,
 })
 
 const deleteAPI = mutationWithClientMutationId ({
     name: 'DeleteAPI',
-    type: ProductType,
 })
 
 const buyAPI = mutationWithClientMutationId ({
     name: 'BuyAPI',
-    type: ProductType,
 })
 
 const sellAPI = mutationWithClientMutationId ({
     name: 'SellAPI',
-    type: ProductType,
 })
 
 
