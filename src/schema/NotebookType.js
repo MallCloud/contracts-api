@@ -2,6 +2,7 @@
 
 import {
 	GraphQLObjectType,
+	GraphQLInputObjectType,
 	GraphQLList,
 	GraphQLNonNull,
 	GraphQLInt,
@@ -13,7 +14,7 @@ import {
 import { globalIdField } from 'graphql-relay';
 import { nodeInterface } from './Node';
 
-export const NotebookType = new GraphQLObjectType({
+const NotebookType = new GraphQLObjectType({
     name: 'Notebook',
     interfaces: [nodeInterface],
 
@@ -109,3 +110,66 @@ export const NotebookType = new GraphQLObjectType({
     }),
 
 });
+
+const NotebookDetails = new GraphQLInputObjectType({
+	name: 'NotebookDetails',
+	interfaces: [nodeInterface],
+
+	fields: () => ({
+		solutionName: {
+			type: GraphQLString,
+			description: '...',
+		},
+
+        description: {
+            type: GraphQLString,
+            description: '...',
+        },
+
+		price: {
+			type: GraphQLFloat,
+			description: '...',
+		},
+
+		language: {
+			type: GraphQLString,
+			description: '...',
+		},
+
+		ensemble: {
+			type: GraphQLString,
+			description: '...',
+		},
+
+		metaEnsemble: {
+			type: GraphQLString,
+			description: '...',
+		},
+
+		status: {
+			type: GraphQLString,
+			description: '...',
+		},
+
+		type: {
+            type: GraphQLInt,
+            description: '...',
+        },
+
+        accessParameters: {
+            type: new GraphQLList(GraphQLString),
+            description: '...',
+        },
+
+        modelGraphID: {
+            type: GraphQLInt,
+            description: '...',
+        },
+
+	}),
+});
+
+module.exports = {
+	NotebookType,
+	NotebookDetails,
+}
