@@ -2,6 +2,7 @@
 
 import {
 	GraphQLObjectType,
+	GraphQLInputObjectType,
 	GraphQLList,
 	GraphQLNonNull,
 	GraphQLInt,
@@ -13,7 +14,7 @@ import {
 import { globalIdField } from 'graphql-relay';
 import { nodeInterface } from './Node';
 
-export const DatasetType = new GraphQLObjectType({
+const DatasetType = new GraphQLObjectType({
     name: 'Dataset',
     interfaces: [nodeInterface],
 
@@ -101,3 +102,70 @@ export const DatasetType = new GraphQLObjectType({
     }),
 
 });
+
+const DatasetDetails = new GraphQLInputObjectType({
+	name: 'DatasetDetails',
+    interfaces: [nodeInterface],
+
+    fields: () => ({
+		solutionName: {
+			type: GraphQLString,
+			description: '...',
+		},
+
+		category: {
+			type: GraphQLString,
+			description: '...',
+		},
+
+		parent: {
+			type: GraphQLString,
+			description: '...',
+		},
+
+		type: {
+			type: GraphQLInt,
+			description: '...',
+		},
+
+		file: {
+			type: GraphQLInt,
+			description: '...',
+		},
+
+        description: {
+            type: GraphQLString,
+            description: '...',
+        },
+
+		price: {
+			type: GraphQLFloat,
+			description: '...',
+		},
+
+		rating: {
+            type: GraphQLString,
+            description: '...',
+        },
+
+		status: {
+			type: GraphQLString,
+			description: '...',
+		},
+
+        accessParameters: {
+            type: new GraphQLList(GraphQLString),
+            description: '...',
+        },
+
+        modelGraphID: {
+            type: GraphQLInt,
+            description: '...',
+        },
+    }),
+});
+
+module.exports = {
+	DatasetType,
+	DatasetDetails,
+}
