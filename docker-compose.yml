@@ -21,7 +21,7 @@ services:
 
   # Data API and authentication/authorization
   api:
-    image: node:8.2.1-alpine
+    image: kriasoft/node-ci:8.4.0-alpine
     hostname: api
     depends_on:
       - db
@@ -42,7 +42,7 @@ services:
       - "8080"
     ports:
       - "127.0.0.1:9229:9229" # V8 inspector for tools/run.js
-      - "127.0.0.1:9230:9230" # V8 inspector for src/serer.js
+      - "127.0.0.1:9230:9230" # V8 inspector for src/server.js
     volumes:
       - yarn:/root/.cache/yarn
       - ./:/usr/src/app
@@ -52,7 +52,7 @@ services:
 
   # SQL and document data store
   db:
-    image: postgres:9.6.3-alpine
+    image: postgres:9.6.4-alpine
     read_only: true
     tmpfs:
       - /tmp
