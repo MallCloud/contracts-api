@@ -2,6 +2,7 @@
 
 import {
 	GraphQLObjectType,
+	GraphQLInputObjectType,
 	GraphQLList,
 	GraphQLNonNull,
 	GraphQLInt,
@@ -13,8 +14,8 @@ import {
 import { globalIdField } from 'graphql-relay';
 import { nodeInterface } from './Node';
 
-export const APIType = new GraphQLObjectType({
-    name: 'Dataset',
+const APIType = new GraphQLObjectType({
+    name: 'API',
     interfaces: [nodeInterface],
 
     fields: () => ({
@@ -22,3 +23,40 @@ export const APIType = new GraphQLObjectType({
     }),
 
 });
+
+const APIDetails = new GraphQLInputObjectType({
+	name: 'APIDetails',
+    interfaces: [nodeInterface],
+
+    fields: () => ({
+		solutionName: {
+			type: GraphQLString,
+			description: '...',
+		},
+
+		description: {
+			type: GraphQLString,
+			description: '...',
+		},
+
+		price: {
+			type: GraphQLInt,
+			description: '...',
+		},
+
+		status: {
+			type: GraphQLString,
+			description: '...',
+		},
+
+		modelGraphID: {
+			type: GraphQLInt,
+			description: '...',
+		},
+    }),
+});
+
+module.exports = {
+	APIType,
+	APIDetails,
+}
