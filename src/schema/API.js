@@ -56,6 +56,15 @@ const createAPI = mutationWithClientMutationId ({
     },
     async mutateCRAPI(input, context) {
         const data = getJSONFromRelativeURL(input.token);
+        const din = createNewDIN(input.token, input.details);
+        const product = createNewAPI(input.details);
+
+        connectToPublicResolver(product);
+
+        var info = {
+
+        };
+        sendInfoToPythonAPI(info);
     },
 });
 
@@ -75,7 +84,8 @@ const editAPI = mutationWithClientMutationId ({
     },
     async mutateEDAPI(input, context) {
         const data = getJSONFromRelativeURL(input.token);
-
+        const productAddress = getProductAddress(input.din);
+        editAPIDetails(input.details);
     },
 });
 
@@ -95,7 +105,7 @@ const deleteAPI = mutationWithClientMutationId ({
     },
     async mutateDLAPI(input, context) {
         const data = getJSONFromRelativeURL(input.token);
-
+        deleteAPI(input.din, data.blockchain_address);
     },
 });
 
@@ -115,7 +125,14 @@ const buyAPI = mutationWithClientMutationId ({
     },
     async mutateBYAPI(input, context) {
         const data = getJSONFromRelativeURL(input.token);
+        const price = getPriceOfProduct(din);
+        var balance = checkIfBalanceAvail(data.balance, price);
 
+        if(!balance) {
+            console.log('[-] Error: Balance Not Enough');
+        } else {
+            buyProduct(din);
+        }
     },
 });
 

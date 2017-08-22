@@ -2,8 +2,14 @@
 import Web3 from 'web3';
 const web3 = new Web3();
 
-const DINRegistryInstance = {
+import {
+    contractConnector
+} from './utils';
 
+const DINRegistryInstance = {
+    createNewDIN: function() {
+        var dinConn = contractConnector('http://localhost:8545', '../contracts/DINRegistry/json');
+    },
 };
 
 export default DINRegistryInstance;

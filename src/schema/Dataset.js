@@ -52,6 +52,15 @@ const createDataset = mutationWithClientMutationId ({
     },
     async mutateCRDataset(input, context) {
         const data = getJSONFromRelativeURL(input.token);
+        const din = createNewDIN(input.token, input.details);
+        const product = createNewDataset(input.details);
+
+        connectToPublicResolver(product);
+
+        var info = {
+
+        };
+        sendInfoToPythonAPI(info);
     },
 });
 
@@ -71,7 +80,8 @@ const editDataset = mutationWithClientMutationId ({
     },
     async mutateEDDataset(input, context) {
         const data = getJSONFromRelativeURL(input.token);
-
+        const productAddress = getProductAddress(input.din);
+        editDatasetDetails(input.details);
     },
 });
 
@@ -91,7 +101,7 @@ const deleteDataset = mutationWithClientMutationId ({
     },
     async mutateDLDataset(input, context) {
         const data = getJSONFromRelativeURL(input.token);
-
+        deleteDataset(input.din, data.blockchain_address);
     },
 });
 
@@ -111,7 +121,14 @@ const buyDataset = mutationWithClientMutationId ({
     },
     async mutateBYDataset(input, context) {
         const data = getJSONFromRelativeURL(input.token);
+        const price = getPriceOfProduct(din);
+        var balance = checkIfBalanceAvail(data.balance, price);
 
+        if(!balance) {
+            console.log('[-] Error: Balance Not Enough');
+        } else {
+            buyProduct(din);
+        }
     },
 });
 

@@ -26,6 +26,10 @@ import {
 
 import { ProductType } from './ProductType';
 
+import {
+
+} from '../connectors/dinRegistryConn';
+
 const notebookQuery = {
     type: NotebookType,
     args: {
@@ -52,6 +56,15 @@ const createNotebook = mutationWithClientMutationId ({
     },
     async mutateCRNotebook(input, context) {
         const data = getJSONFromRelativeURL(input.token);
+        const din = createNewDIN(input.token, input.details);
+        const product = createNewNotebook(input.details);
+
+        connectToPublicResolver(product);
+
+        var info = {
+
+        };
+        sendInfoToPythonAPI(info);
     },
 });
 
@@ -71,7 +84,8 @@ const editNotebook = mutationWithClientMutationId ({
     },
     async mutateEDNotebook(input, context) {
         const data = getJSONFromRelativeURL(input.token);
-
+        const productAddress = getProductAddress(input.din);
+        editNotebookDetails(input.details);
     },
 });
 
@@ -91,7 +105,7 @@ const deleteNotebook = mutationWithClientMutationId ({
     },
     async mutateDLNotebook(input, context) {
         const data = getJSONFromRelativeURL(input.token);
-
+        deleteNotebook(input.din, data.blockchain_address);
     },
 });
 
@@ -111,7 +125,14 @@ const buyNotebook = mutationWithClientMutationId ({
     },
     async mutateBYNotebook(input, context) {
         const data = getJSONFromRelativeURL(input.token);
+        const price = getPriceOfProduce(din);
+        var balance = checkIfBalanceAvail(data.balance, price);
 
+        if(!balance) {
+            console.log('[-] Error: Balance Not Enough');
+        } else {
+            buyProduct(din);
+        }
     },
 });
 
