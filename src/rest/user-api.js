@@ -10,7 +10,7 @@ const api_url = 'http://' + restapi_host + ':' + restapi_port;
 
 import { getTokenForAuth } from './token';
 
-function getJSONFromRelativeURL(relativeURL, info) {
+function getJSONFromRelativeURLUsingCred(relativeURL, info) {
     return getTokenForAuth(info)
         .then(function(token) {
             return fetch(`${api_url}${relativeURL}`, {
@@ -26,6 +26,20 @@ function getJSONFromRelativeURL(relativeURL, info) {
         })
 }
 
+function getJSONFromRelativeURL(relativeURL, token) {
+    return fetch(`${api_url}${relativeURL}`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Token ${token.token}`
+        }
+    })
+    .then(function(res) {
+        return res.json();
+    })
+}
+
 module.exports = {
+    getJSONFromRelativeURLUsingCred,
     getJSONFromRelativeURL,
 };
