@@ -10,6 +10,7 @@ import { userQuery } from './User';
 import {
     notebookQuery,
     createNotebook,
+    editNotebook,
     deleteNotebook,
     buyNotebook,
     sellNotebook,
@@ -18,6 +19,7 @@ import {
 import {
     datasetQuery,
     createDataset,
+    editDataset,
     deleteDataset,
     buyDataset,
     sellDataset,
@@ -26,6 +28,7 @@ import {
 import {
     apiQuery,
     createAPI,
+    editAPI,
     deleteAPI,
     buyAPI,
     sellAPI,
@@ -48,14 +51,17 @@ export default new GraphQLSchema({
         name: 'Mutation',
         fields: {
             createNotebook,
+            editNotebook,
             deleteNotebook,
             buyNotebook,
             sellNotebook,
             createDataset,
+            editDataset,
             deleteDataset,
             buyDataset,
             sellDataset,
             createAPI,
+            editAPI,
             deleteAPI,
             buyAPI,
             sellAPI,
