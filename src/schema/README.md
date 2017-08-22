@@ -9,17 +9,38 @@ import { notebookQuery } from './Notebook';
 import { datasetQuery } from './Data';
 
 export default new GraphQLSchema({
-  query: new GraphQLObjectType({
-    name: 'Query',
-    fields: {
-      userQuery,
-      notebookQuery,
-      datasetQuery,
-      node,
-      nodes,
-    },
-  }),
+    query: new GraphQLObjectType({
+        name: 'Query',
+        fields: {
+            userQuery,
+            notebookQuery,
+            datasetQuery,
+            node,
+            nodes,
+        },
+    }),
+    mutation: new GraphQLObjectType({
+        name: 'Mutation',
+        fields: {
+            createNotebook,
+            editNotebook,
+            deleteNotebook,
+            buyNotebook,
+            sellNotebook,
+            createDataset,
+            editDataset,
+            deleteDataset,
+            buyDataset,
+            sellDataset,
+            createAPI,
+            editAPI,
+            deleteAPI,
+            buyAPI,
+            sellAPI,
+        },
+    }),
 });
+
 ```
 
 ### Top Level Fields
@@ -36,3 +57,21 @@ export default new GraphQLSchema({
 * NotebookType
 * TransactionType
 * UserType
+
+### GraphQL Mutations
+
+* createNotebook
+* editNotebook
+* deleteNotebook
+* buyNotebook
+* sellNotebook
+* createDataset
+* editDataset
+* deleteDataset
+* buyDataset
+* sellDataset
+* createAPI
+* editAPI
+* deleteAPI
+* buyAPI
+* sellAPI

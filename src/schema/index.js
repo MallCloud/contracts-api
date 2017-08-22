@@ -66,5 +66,5 @@ export default new GraphQLSchema({
             buyAPI,
             sellAPI,
         },
-  }),
+    }),
 });
