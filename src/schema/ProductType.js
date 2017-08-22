@@ -19,5 +19,5 @@ export const ProductType = new GraphQLObjectType({
 
     fields: () => ({
         id: globalIdField('Product'),
-
+	}),
 });
