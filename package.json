@@ -34,10 +34,17 @@
     "redis": "^2.7.1",
     "source-map-support": "^0.4.15",
     "validator": "^8.0.0",
-    "truffle-contract": "^2.0.5",
     "vue": "^2.3.3",
     "vue-router": "^2.6.0",
-    "web3": "0.20.0"
+    "web3": "0.20.0",
+    "axios": "^0.16.2",
+    "bignumber.js": "^4.0.2",
+    "fs": "0.0.1-security",
+    "path": "^0.12.7",
+    "require-nocache": "^1.0.0",
+    "temp": "^0.8.3",
+    "truffle-artifactor": "^2.1.5",
+    "truffle-contract": "^2.0.5"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
