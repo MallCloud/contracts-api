@@ -23,7 +23,7 @@ function ContractConnector(url, abiJSON) {
     }
 }
 
-module.exports {
+module.exports = {
     callback,
     ContractConnector,
-}
+};
