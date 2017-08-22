@@ -33,7 +33,10 @@
     "pretty-error": "^2.1.1",
     "redis": "^2.7.1",
     "source-map-support": "^0.4.15",
-    "validator": "^8.0.0"
+    "validator": "^8.0.0",
+    "truffle-contract": "^2.0.5",
+    "vue": "^2.3.3",
+    "vue-router": "^2.6.0"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
