@@ -31,7 +31,7 @@ function getJSONFromRelativeURL(relativeURL, token) {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
-            Authorization: `Token ${token.token}`
+            "Authorization": `Token ${token}`
         }
     })
     .then(function(res) {

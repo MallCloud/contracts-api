@@ -42,13 +42,13 @@ function getTokenForAuth(info) {
             return res.json();
         })
         .then(function(res) {
-            store.token = res.token;
+            store.token = res;
             return res;
         })
     }
 
     else {
-        return store.token;
+        return Promise.resolve(store.token);
     }
 }
 
