@@ -27,7 +27,7 @@ import {
 import { ProductType } from './ProductType';
 
 import {
-
+    dinRegistryInstance
 } from '../connectors/dinRegistryConn';
 
 const notebookQuery = {
@@ -56,7 +56,7 @@ const createNotebook = mutationWithClientMutationId ({
     },
     async mutateCRNotebook(input, context) {
         const data = getJSONFromRelativeURL(input.token);
-        const din = createNewDIN(input.token, input.details);
+        const din = dinRegistryInstance.createNewDIN(input.token, input.details);
         const product = createNewNotebook(input.details);
 
         connectToPublicResolver(product);

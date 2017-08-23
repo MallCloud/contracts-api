@@ -25,6 +25,7 @@ import {
 } from './DatasetType';
 
 import { ProductType } from './ProductType';
+import { dinRegistryInstance } from '../connectors/dinRegistryConn';
 
 const datasetQuery = {
     type: DatasetType,
@@ -52,7 +53,7 @@ const createDataset = mutationWithClientMutationId ({
     },
     async mutateCRDataset(input, context) {
         const data = getJSONFromRelativeURL(input.token);
-        const din = createNewDIN(input.token, input.details);
+        const din = dinRegistryInstance.createNewDIN(input.token, input.details);
         const product = createNewDataset(input.details);
 
         connectToPublicResolver(product);

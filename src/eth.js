@@ -4,10 +4,16 @@ import bodyParser from 'body-parser';
 import jwt from 'jsonwebtoken';
 import cuid from 'cuid';
 import cors from 'cors';
-import LoginConnector from './connectors/loginconn';
-import NotebookConnector from './connectors/notebookconn';
-import DatasetConnector from './connectors/datasetconn';
 
+import Web3 from 'web3');
+import fs from "fs");
+import Artifactor from "truffle-artifactor");
+import contract from "truffle-contract");
+import temp from "temp").track();
+import path from "path");
+import requireNoCache from "require-nocache")(module);
+
+const provider = new Web3.providers.HttpProvider("http://localhost:8545");
 
 const eth = {
 

@@ -30,6 +30,8 @@ import {
     getJSONFromRelativeURLUsingCred,
 } from '../rest/user-api';
 
+import { dinRegistryInstance } from '../connectors/dinRegistryConn';
+
 const apiQuery = {
     type: APIType,
     args: {
@@ -56,8 +58,8 @@ const createAPI = mutationWithClientMutationId ({
     },
     async mutateCRAPI(input, context) {
         const data = getJSONFromRelativeURL(input.token);
-        const din = createNewDIN(input.token, input.details);
-        const product = createNewAPI(input.details);
+        const din = dinRegistryInstance.createNewDIN(input.token, input.details);
+        const product = createNewAPI(input.details, din);
 
         connectToPublicResolver(product);
 
