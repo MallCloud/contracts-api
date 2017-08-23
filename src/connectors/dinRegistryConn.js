@@ -2,7 +2,17 @@
 import Web3 from 'web3';
 const web3 = new Web3();
 
-const DINRegistryInstance = {
+import Artifactor from 'truffle-artifactor';
+import Temp from 'temp';
+import fs from 'fs';
+import contract from 'truffle-contract';
+import path from 'path';
+
+var requireNoCache = require("require-nocache")(module);
+var provider = new Web3.providers.HttpProvider("http://localhost:8545");
+var temp = Temp.track();
+
+const DINConnectorInstance = {
     contractInst: null,
     toAddress: null,
     toAmount: 0,
@@ -21,19 +31,19 @@ const DINRegistryInstance = {
     },
 
     getProvider: function() {
-        if(typeof this.web3 !== 'undefined') {
+        if(this.web3 !== null) {
             this.web3Provider = this.web3.currentProvider;
             this.web3 = new Web3(this.web3Provider);
         } else {
             this.web3Provider = new Web3.providers.HttpProvider('http://localhost:8545');
-            this.web3 = new Web3(web3Provider);
+            this.web3 = new Web3(this.web3Provider);
         }
     },
 
-    getContractInstance: function() {
-        var DINRegistryArtifact = require('./build/contracts/DINRegistry.json');
-        this.contracts.DINRegistry = contract(DINRegistryArtifact);
-        this.contracts.DINRegistry.setProvider(this.web3Provider);
+    getContract: function() {
+        var dinRegistryArtifact = require('../contracts/DINRegistry.json');
+        this.contracts.dinRegistry = contract(dinRegistryArtifact);
+        this.contracts.dinRegistry.setProvider(this.web3Provider);
     },
 
     networkCheck: function() {
@@ -59,35 +69,38 @@ const DINRegistryInstance = {
         });
     },
 
-    createNewDIN: function() {
-        // this.networkCheck();
-
-        this.contractInst = this.getContractInstance();
-        web3.eth.getAccounts((error, accounts) => {
+    getAccounts: function() {
+        this.web3.eth.getAccounts((error, accounts) => {
             if (error) {
                 console.log(error);
                 return;
             }
+            return accounts;
+        });
+    },
 
-            this.account = accounts[0];
-            console.log(accounts);
+    createNewDIN: function(account) {
+        this.getProvider();
+        // this.networkCheck();
+        this.getContract();
 
-            return this.contracts.DINRegistry.deployed().then((instance) => {
-                var DINRegistryInstance = instance;
-                var event = DINRegistryInstance.NewRegistration({owner: account});
-                event.watch(this.callback);
+        this.account = account;
+        return this.contracts.dinRegistry.deployed().then((instance) => {
+            var contractInstance = instance;
+            var event = contractInstance.NewRegistration({owner: this.account});
+            event.watch(this.callback);
 
-                var newDIN = DINRegistryInstance.registerNewDIN();
-                return newDIN;
-            })
-            .then((result) => {
-                console.log('new din is ' + result);
-            })
-            .catch((err) => {
-                console.log(err.message);
-            })
+            return contractInstance.registerNewDIN();
         })
+        .then((result) => {
+            console.log('new din is ' + result);
+            return result;
+        })
+        .catch((err) => {
+            console.log(err.message);
+        })
+
     },
 };
 
-export default DINRegistryInstance;
+export default DINConnectorInstance;

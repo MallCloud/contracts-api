@@ -54,7 +54,7 @@ const createNotebook = mutationWithClientMutationId ({
     outputFields: {
 
     },
-    async mutateCRNotebook(input, context) {
+    async mutateAndGetPayload(input, context) {
         const data = getJSONFromRelativeURL(input.token);
         const din = dinRegistryInstance.createNewDIN(input.token, input.details);
         const product = createNewNotebook(input.details);
@@ -82,7 +82,7 @@ const editNotebook = mutationWithClientMutationId ({
     outputFields: {
 
     },
-    async mutateEDNotebook(input, context) {
+    async mutateAndGetPayload(input, context) {
         const data = getJSONFromRelativeURL(input.token);
         const productAddress = getProductAddress(input.din);
         editNotebookDetails(input.details);
@@ -103,7 +103,7 @@ const deleteNotebook = mutationWithClientMutationId ({
     outputFields: {
 
     },
-    async mutateDLNotebook(input, context) {
+    async mutateAndGetPayload(input, context) {
         const data = getJSONFromRelativeURL(input.token);
         deleteNotebook(input.din, data.blockchain_address);
     },
@@ -123,7 +123,7 @@ const buyNotebook = mutationWithClientMutationId ({
     outputFields: {
 
     },
-    async mutateBYNotebook(input, context) {
+    async mutateAndGetPayload(input, context) {
         const data = getJSONFromRelativeURL(input.token);
         const price = getPriceOfProduce(din);
         var balance = checkIfBalanceAvail(data.balance, price);
@@ -150,7 +150,7 @@ const sellNotebook = mutationWithClientMutationId ({
     outputFields: {
 
     },
-    async mutateSLNotebook(input, context) {
+    async mutateAndGetPayload(input, context) {
         const data = getJSONFromRelativeURL(input.token);
 
     },

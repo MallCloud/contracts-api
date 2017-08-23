@@ -51,7 +51,7 @@ const createDataset = mutationWithClientMutationId ({
     outputFields: {
 
     },
-    async mutateCRDataset(input, context) {
+    async mutateAndGetPayload(input, context) {
         const data = getJSONFromRelativeURL(input.token);
         const din = dinRegistryInstance.createNewDIN(input.token, input.details);
         const product = createNewDataset(input.details);
@@ -79,7 +79,7 @@ const editDataset = mutationWithClientMutationId ({
     outputFields: {
 
     },
-    async mutateEDDataset(input, context) {
+    async mutateAndGetPayload(input, context) {
         const data = getJSONFromRelativeURL(input.token);
         const productAddress = getProductAddress(input.din);
         editDatasetDetails(input.details);
@@ -100,7 +100,7 @@ const deleteDataset = mutationWithClientMutationId ({
     outputFields: {
 
     },
-    async mutateDLDataset(input, context) {
+    async mutateAndGetPayload(input, context) {
         const data = getJSONFromRelativeURL(input.token);
         deleteDataset(input.din, data.blockchain_address);
     },
@@ -120,7 +120,7 @@ const buyDataset = mutationWithClientMutationId ({
     outputFields: {
 
     },
-    async mutateBYDataset(input, context) {
+    async mutateAndGetPayload(input, context) {
         const data = getJSONFromRelativeURL(input.token);
         const price = getPriceOfProduct(din);
         var balance = checkIfBalanceAvail(data.balance, price);
@@ -147,7 +147,7 @@ const sellDataset = mutationWithClientMutationId ({
     outputFields: {
 
     },
-    async mutateSLDataset(input, context) {
+    async mutateAndGetPayload(input, context) {
         const data = getJSONFromRelativeURL(input.token);
 
     },
