@@ -12,7 +12,7 @@ import {
 import { UserType } from './UserType';
 
 import {
-    getJSONFromRelativeURL,
+    getJSONFromRelativeURLUsingCred,
 } from '../rest/user-api';
 
 const userQuery = {
@@ -28,7 +28,7 @@ const userQuery = {
             "password": args.password
     	};
 
-    	return getJSONFromRelativeURL(`/api/users/${args.id}`, info);
+    	return getJSONFromRelativeURLUsingCred(`/api/users/${args.id}`, info);
     },
 };
 
