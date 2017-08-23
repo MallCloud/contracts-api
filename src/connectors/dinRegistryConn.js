@@ -2,19 +2,15 @@
 import Web3 from 'web3';
 const web3 = new Web3();
 
-import {
-    contractConnector
-} from './utils';
-
 const DINRegistryInstance = {
-    var contractInst = null,
-    var toAddress = null,
-    var toAmount = 0,
-    var web3 = null,
-    var web3Provider = null,
-    var balance = 0,
-    var contracts = {},
-    var account = null,
+    contractInst: null,
+    toAddress: null,
+    toAmount: 0,
+    web3: null,
+    web3Provider: null,
+    balance: 0,
+    contracts: {},
+    account: null,
 
     callback: function(error, result) {
         if (!error) {
