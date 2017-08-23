@@ -8,6 +8,7 @@ import {
     GraphQLString,
     GraphQLNonNull,
     GraphQLFloat,
+    GraphQLInt,
 } from 'graphql';
 
 import {
@@ -30,7 +31,7 @@ import {
     getJSONFromRelativeURLUsingCred,
 } from '../rest/user-api';
 
-import { dinRegistryInstance } from '../connectors/dinRegistryConn';
+import DINConnectorInstance from '../connectors/dinRegistryConn';
 
 const apiQuery = {
     type: APIType,
@@ -45,6 +46,10 @@ const apiQuery = {
 const createAPI = mutationWithClientMutationId ({
     name: 'CreateAPI',
     inputFields: {
+        userid: {
+            type: GraphQLInt,
+        },
+
         token: {
             type: GraphQLString,
         },
@@ -54,19 +59,27 @@ const createAPI = mutationWithClientMutationId ({
         },
     },
     outputFields: {
-
+        din: {
+            type: GraphQLInt,
+        },
     },
-    async mutateCRAPI(input, context) {
-        const data = getJSONFromRelativeURL(input.token);
-        const din = dinRegistryInstance.createNewDIN(input.token, input.details);
-        const product = createNewAPI(input.details, din);
-
-        connectToPublicResolver(product);
-
-        var info = {
-
-        };
-        sendInfoToPythonAPI(info);
+    async mutateAndGetPayload(input, context) {
+        DINConnectorInstance.createNewDIN(input.token, input.details);
+        return getJSONFromRelativeURL(`/api/users/${input.userid}`, input.token)
+            .then(function(info) {
+                return DINConnectorInstance.createNewDIN(info.blockchain_address);
+            })
+            .then(function(din) {
+                // const product = createNewAPI(input.details, din);
+                // connectToPublicResolver(product);
+                //
+                // var info = {
+                //
+                // };
+                // 
+                // sendInfoToPythonAPI(info);
+                return din;
+            })
     },
 });
 
@@ -84,8 +97,8 @@ const editAPI = mutationWithClientMutationId ({
     outputFields: {
 
     },
-    async mutateEDAPI(input, context) {
-        const data = getJSONFromRelativeURL(input.token);
+    async mutateAndGetPayload(input, context) {
+        const data = getJSONFromRelativeURL(`/api/users/${input.userid}`, input.token);
         const productAddress = getProductAddress(input.din);
         editAPIDetails(input.details);
     },
@@ -105,7 +118,7 @@ const deleteAPI = mutationWithClientMutationId ({
     outputFields: {
 
     },
-    async mutateDLAPI(input, context) {
+    async mutateAndGetPayload(input, context) {
         const data = getJSONFromRelativeURL(input.token);
         deleteAPI(input.din, data.blockchain_address);
     },
@@ -125,7 +138,7 @@ const buyAPI = mutationWithClientMutationId ({
     outputFields: {
 
     },
-    async mutateBYAPI(input, context) {
+    async mutateAndGetPayload(input, context) {
         const data = getJSONFromRelativeURL(input.token);
         const price = getPriceOfProduct(din);
         var balance = checkIfBalanceAvail(data.balance, price);
@@ -152,7 +165,7 @@ const sellAPI = mutationWithClientMutationId ({
     outputFields: {
 
     },
-    async mutateSLAPI(input, context) {
+    async mutateAndGetPayload(input, context) {
         const data = getJSONFromRelativeURL(input.token);
 
     },
