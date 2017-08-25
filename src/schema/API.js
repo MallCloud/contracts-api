@@ -64,7 +64,6 @@ const createAPI = mutationWithClientMutationId ({
         },
     },
     async mutateAndGetPayload(input, context) {
-        DINConnectorInstance.createNewDIN(input.token, input.details);
         return getJSONFromRelativeURL(`/api/users/${input.userid}`, input.token)
             .then(function(info) {
                 return DINConnectorInstance.createNewDIN(info.blockchain_address);
@@ -76,9 +75,13 @@ const createAPI = mutationWithClientMutationId ({
                 // var info = {
                 //
                 // };
-                // 
+                //
                 // sendInfoToPythonAPI(info);
-                return din;
+                var result = {
+                    din: din
+                };
+                
+                return result;
             })
     },
 });

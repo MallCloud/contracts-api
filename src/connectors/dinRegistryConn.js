@@ -98,7 +98,7 @@ const DINConnectorInstance = {
                 event.watch(this.callback);
 
                 console.log('give me my logger, how can it be ' + logger);
-                return contractInstance.registerNewDIN({from: this.account})
+                return contractInstance.registerDIN({from: this.account})
                     .then(function() {
                         event.stopWatching();
                         console.log(logger);
