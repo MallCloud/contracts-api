@@ -14,6 +14,7 @@ var temp = Temp.track();
 
 const DINConnectorInstance = {
     contractInst: null,
+    contractAddr: null,
     toAddress: null,
     toAmount: 0,
     web3: null,
@@ -21,10 +22,12 @@ const DINConnectorInstance = {
     balance: 0,
     contracts: {},
     account: null,
+    logger: null,
 
     callback: function(error, result) {
         if (!error) {
-            console.log(result)
+            logger = result;
+            console.log(result);
         } else {
             console.log(error)
         }
@@ -42,8 +45,8 @@ const DINConnectorInstance = {
 
     getContract: function() {
         var dinRegistryArtifact = require('../contracts/DINRegistry.json');
-        this.contracts.dinRegistry = contract(dinRegistryArtifact);
-        this.contracts.dinRegistry.setProvider(this.web3Provider);
+        this.contracts.DINRegistry = contract(dinRegistryArtifact);
+        this.contracts.DINRegistry.setProvider(this.web3Provider);
     },
 
     networkCheck: function() {
@@ -85,20 +88,30 @@ const DINConnectorInstance = {
         this.getContract();
 
         this.account = account;
-        return this.contracts.dinRegistry.deployed().then((instance) => {
-            var contractInstance = instance;
-            var event = contractInstance.NewRegistration({owner: this.account});
-            event.watch(this.callback);
+        this.contractAddr = "0x3c8b149bb67c2e050d8ae0b17c98a5b2259d0c1d";
 
-            return contractInstance.registerNewDIN();
-        })
-        .then((result) => {
-            console.log('new din is ' + result);
-            return result;
-        })
-        .catch((err) => {
-            console.log(err.message);
-        })
+        return this.contracts.DINRegistry.at(this.contractAddr)
+            .then(function(instance) {
+                var contractInstance = instance;
+
+                var event = contractInstance.NewRegistration({owner: this.account});
+                event.watch(this.callback);
+
+                console.log('give me my logger, how can it be ' + logger);
+                return contractInstance.registerNewDIN({from: this.account})
+                    .then(function() {
+                        event.stopWatching();
+                        console.log(logger);
+                        return logger.args.DIN.toString();
+                    })
+            })
+            .then((result) => {
+                console.log('new din is ' + result);
+                return result;
+            })
+            .catch((err) => {
+                console.log(err.message);
+            })
 
     },
 };
