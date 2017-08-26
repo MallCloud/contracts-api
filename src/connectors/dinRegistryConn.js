@@ -9,7 +9,7 @@ import contract from 'truffle-contract';
 import path from 'path';
 
 var requireNoCache = require("require-nocache")(module);
-var provider = new Web3.providers.HttpProvider("http://localhost:8545");
+var provider = new Web3.providers.HttpProvider("http://127.0.0.1:8545");
 var temp = Temp.track();
 
 /**
@@ -126,10 +126,11 @@ const DINConnectorInstance = {
         this.getContract();
 
         this.account = account;
-        this.contractAddr = "0x3c8b149bb67c2e050d8ae0b17c98a5b2259d0c1d";
+        this.contractAddr = "0xbeb47f08ee882c4c2f18958bed17fa5a12cf9b70";
 
         return this.contracts.DINRegistry.at(this.contractAddr)
             .then(function(instance) {
+                console.log('chal ja mc');
                 var contractInstance = instance;
 
                 var event = contractInstance.NewRegistration({owner: this.account});

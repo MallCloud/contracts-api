@@ -25,7 +25,7 @@ import {
 } from './DatasetType';
 
 import { ProductType } from './ProductType';
-import { dinRegistryInstance } from '../connectors/dinRegistryConn';
+import { DINConnectorInstance } from '../connectors/dinRegistryConn';
 
 const datasetQuery = {
     type: DatasetType,
@@ -52,16 +52,25 @@ const createDataset = mutationWithClientMutationId ({
 
     },
     async mutateAndGetPayload(input, context) {
-        const data = getJSONFromRelativeURL(input.token);
-        const din = dinRegistryInstance.createNewDIN(input.token, input.details);
-        const product = createNewDataset(input.details);
+        return getJSONFromRelativeURL(`/api/users/${input.userid}`, input.token)
+            .then(function(info) {
+                return DINConnectorInstance.createNewDIN(info.blockchain_address);
+            })
+            .then(function(din) {
+                // const product = createNewDataset(input.details, din);
+                // connectToPublicResolver(product);
+                //
+                // var info = {
+                //
+                // };
+                //
+                // sendInfoToPythonAPI(info);
+                var result = {
+                    din: din
+                };
 
-        connectToPublicResolver(product);
-
-        var info = {
-
-        };
-        sendInfoToPythonAPI(info);
+                return result;
+            })
     },
 });
 

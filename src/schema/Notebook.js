@@ -27,7 +27,7 @@ import {
 import { ProductType } from './ProductType';
 
 import {
-    dinRegistryInstance
+    DINConnectorInstance
 } from '../connectors/dinRegistryConn';
 
 const notebookQuery = {
@@ -55,16 +55,25 @@ const createNotebook = mutationWithClientMutationId ({
 
     },
     async mutateAndGetPayload(input, context) {
-        const data = getJSONFromRelativeURL(input.token);
-        const din = dinRegistryInstance.createNewDIN(input.token, input.details);
-        const product = createNewNotebook(input.details);
+        return getJSONFromRelativeURL(`/api/users/${input.userid}`, input.token)
+            .then(function(info) {
+                return DINConnectorInstance.createNewDIN(info.blockchain_address);
+            })
+            .then(function(din) {
+                // const product = createNewNotebook(input.details, din);
+                // connectToPublicResolver(product);
+                //
+                // var info = {
+                //
+                // };
+                //
+                // sendInfoToPythonAPI(info);
+                var result = {
+                    din: din
+                };
 
-        connectToPublicResolver(product);
-
-        var info = {
-
-        };
-        sendInfoToPythonAPI(info);
+                return result;
+            })
     },
 });
 

@@ -38,15 +38,27 @@
       "type": "function"
     },
     {
-      "constant": true,
-      "inputs": [],
-      "name": "orderTracker",
-      "outputs": [
+      "constant": false,
+      "inputs": [
         {
-          "name": "",
+          "name": "DIN",
+          "type": "uint256"
+        },
+        {
+          "name": "priceResolver",
+          "type": "address"
+        },
+        {
+          "name": "inventoryResolver",
+          "type": "address"
+        },
+        {
+          "name": "buyHandler",
           "type": "address"
         }
       ],
+      "name": "setProduct",
+      "outputs": [],
       "payable": false,
       "type": "function"
     },
@@ -73,6 +85,10 @@
         {
           "name": "quantity",
           "type": "uint256"
+        },
+        {
+          "name": "buyer",
+          "type": "address"
         }
       ],
       "name": "price",
@@ -136,63 +152,12 @@
     },
     {
       "constant": true,
-      "inputs": [
-        {
-          "name": "DIN",
-          "type": "uint256"
-        }
-      ],
-      "name": "orderInfo",
+      "inputs": [],
+      "name": "KMT",
       "outputs": [
         {
           "name": "",
-          "type": "bytes32"
-        }
-      ],
-      "payable": false,
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [
-        {
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "name": "orders",
-      "outputs": [
-        {
-          "name": "buyer",
           "type": "address"
-        },
-        {
-          "name": "seller",
-          "type": "address"
-        },
-        {
-          "name": "DIN",
-          "type": "uint256"
-        },
-        {
-          "name": "info",
-          "type": "bytes32"
-        },
-        {
-          "name": "value",
-          "type": "uint256"
-        },
-        {
-          "name": "quantity",
-          "type": "uint256"
-        },
-        {
-          "name": "timestamp",
-          "type": "uint256"
-        },
-        {
-          "name": "status",
-          "type": "uint8"
         }
       ],
       "payable": false,
@@ -239,41 +204,6 @@
       "type": "function"
     },
     {
-      "constant": true,
-      "inputs": [],
-      "name": "dinRegistry",
-      "outputs": [
-        {
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "payable": false,
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "DIN",
-          "type": "uint256"
-        },
-        {
-          "name": "quantity",
-          "type": "uint256"
-        }
-      ],
-      "name": "buy",
-      "outputs": [
-        {
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "payable": true,
-      "type": "function"
-    },
-    {
       "constant": false,
       "inputs": [
         {
@@ -304,6 +234,24 @@
       ],
       "name": "setBuyHandler",
       "outputs": [],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "orderID",
+          "type": "uint256"
+        }
+      ],
+      "name": "buy",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
       "payable": false,
       "type": "function"
     },
@@ -343,13 +291,31 @@
       "type": "function"
     },
     {
+      "constant": true,
       "inputs": [
         {
-          "name": "_dinRegistry",
-          "type": "address"
+          "name": "DIN",
+          "type": "uint256"
         },
         {
-          "name": "_orderTracker",
+          "name": "buyer",
+          "type": "address"
+        }
+      ],
+      "name": "orderData",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "name": "_KMT",
           "type": "address"
         }
       ],
@@ -415,5 +381,5 @@
   "unlinked_binary": "0x",
   "networks": {},
   "schema_version": "0.0.5",
-  "updated_at": 1502866351392
+  "updated_at": 1503737311747
 }
