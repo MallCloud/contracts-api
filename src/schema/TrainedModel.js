@@ -21,9 +21,9 @@ import {
 } from 'graphql-relay';
 
 import {
-    APIType,
-    APIDetails,
-} from './APIType';
+    TrainedModelType,
+    TrainedModelDetails,
+} from './TrainedModelType';
 import { ProductType } from './ProductType';
 
 import {
@@ -33,8 +33,8 @@ import {
 
 import DINConnectorInstance from '../connectors/dinRegistryConn';
 
-const apiQuery = {
-    type: APIType,
+const tmQuery = {
+    type: TrainedModelType,
     args: {
         id: {type: new GraphQLNonNull(GraphQLID)},
 	},
@@ -43,8 +43,8 @@ const apiQuery = {
     },
 };
 
-const createAPI = mutationWithClientMutationId ({
-    name: 'CreateAPI',
+const createTrainedModel = mutationWithClientMutationId ({
+    name: 'CreateTrainedModel',
     inputFields: {
         userid: {
             type: GraphQLInt,
@@ -55,7 +55,7 @@ const createAPI = mutationWithClientMutationId ({
         },
 
         details: {
-            type: APIDetails,
+            type: TrainedModelDetails,
         },
     },
     outputFields: {
@@ -69,7 +69,7 @@ const createAPI = mutationWithClientMutationId ({
                 return DINConnectorInstance.createNewDIN(info.blockchain_address);
             })
             .then(function(din) {
-                // const product = createNewAPI(input.details, din);
+                // const product = createNewTrainedModel(input.details, din);
                 // connectToPublicResolver(product);
                 //
                 // var info = {
@@ -80,21 +80,21 @@ const createAPI = mutationWithClientMutationId ({
                 var result = {
                     din: din
                 };
-                
+
                 return result;
             })
     },
 });
 
-const editAPI = mutationWithClientMutationId ({
-    name: 'EditAPI',
+const editTrainedModel = mutationWithClientMutationId ({
+    name: 'EditTrainedModel',
     inputFields: {
         token: {
             type: GraphQLString,
         },
 
         details: {
-            type: APIDetails,
+            type: TrainedModelDetails,
         },
     },
     outputFields: {
@@ -103,12 +103,12 @@ const editAPI = mutationWithClientMutationId ({
     async mutateAndGetPayload(input, context) {
         const data = getJSONFromRelativeURL(`/api/users/${input.userid}`, input.token);
         const productAddress = getProductAddress(input.din);
-        editAPIDetails(input.details);
+        editTrainedModelDetails(input.details);
     },
 });
 
-const deleteAPI = mutationWithClientMutationId ({
-    name: 'DeleteAPI',
+const deleteTrainedModel = mutationWithClientMutationId ({
+    name: 'DeleteTrainedModel',
     inputFields: {
         token: {
             type: GraphQLString,
@@ -123,12 +123,12 @@ const deleteAPI = mutationWithClientMutationId ({
     },
     async mutateAndGetPayload(input, context) {
         const data = getJSONFromRelativeURL(input.token);
-        deleteAPI(input.din, data.blockchain_address);
+        deleteTrainedModel(input.din, data.blockchain_address);
     },
 });
 
-const buyAPI = mutationWithClientMutationId ({
-    name: 'BuyAPI',
+const buyTrainedModel = mutationWithClientMutationId ({
+    name: 'BuyTrainedModel',
     inputFields: {
         token: {
             type: GraphQLString,
@@ -154,8 +154,8 @@ const buyAPI = mutationWithClientMutationId ({
     },
 });
 
-const sellAPI = mutationWithClientMutationId ({
-    name: 'SellAPI',
+const sellTrainedModel = mutationWithClientMutationId ({
+    name: 'SellTrainedModel',
     inputFields: {
         token: {
             type: GraphQLString,
@@ -176,10 +176,10 @@ const sellAPI = mutationWithClientMutationId ({
 
 
 module.exports = {
-    apiQuery,
-    createAPI,
-    editAPI,
-    deleteAPI,
-    buyAPI,
-    sellAPI,
+    tmQuery,
+    createTrainedModel,
+    editTrainedModel,
+    deleteTrainedModel,
+    buyTrainedModel,
+    sellTrainedModel,
 }

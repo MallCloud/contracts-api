@@ -26,13 +26,13 @@ import {
 } from './Dataset';
 
 import {
-    apiQuery,
-    createAPI,
-    editAPI,
-    deleteAPI,
-    buyAPI,
-    sellAPI,
-} from './API';
+    tmQuery,
+    createTrainedModel,
+    editTrainedModel,
+    deleteTrainedModel,
+    buyTrainedModel,
+    sellTrainedModel,
+} from './TrainedModel';
 
 import { node, nodes } from './Node';
 
@@ -43,6 +43,7 @@ export default new GraphQLSchema({
             userQuery,
             notebookQuery,
             datasetQuery,
+            tmQuery,
             node,
             nodes,
         },
@@ -60,11 +61,11 @@ export default new GraphQLSchema({
             deleteDataset,
             buyDataset,
             sellDataset,
-            createAPI,
-            editAPI,
-            deleteAPI,
-            buyAPI,
-            sellAPI,
+            createTrainedModel,
+            editTrainedModel,
+            deleteTrainedModel,
+            buyTrainedModel,
+            sellTrainedModel,
         },
     }),
 });

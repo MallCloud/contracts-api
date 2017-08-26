@@ -14,8 +14,8 @@ import {
 import { globalIdField } from 'graphql-relay';
 import { nodeInterface } from './Node';
 
-const APIType = new GraphQLObjectType({
-    name: 'API',
+const TrainedModelType = new GraphQLObjectType({
+    name: 'TrainedModel',
     interfaces: [nodeInterface],
 
     fields: () => ({
@@ -24,8 +24,8 @@ const APIType = new GraphQLObjectType({
 
 });
 
-const APIDetails = new GraphQLInputObjectType({
-	name: 'APIDetails',
+const TrainedModelDetails = new GraphQLInputObjectType({
+	name: 'TrainedModelDetails',
     interfaces: [nodeInterface],
 
     fields: () => ({
@@ -57,6 +57,6 @@ const APIDetails = new GraphQLInputObjectType({
 });
 
 module.exports = {
-	APIType,
-	APIDetails,
+	TrainedModelType,
+	TrainedModelDetails,
 }
