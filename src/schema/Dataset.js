@@ -86,12 +86,21 @@ const editDataset = mutationWithClientMutationId ({
         },
     },
     outputFields: {
+        outputFields: {
+            isEdited: {
+                type: GraphQLBoolean,
+            },
 
+            details: {
+                type: TrainedModelDetails,
+            },
+        },
     },
     async mutateAndGetPayload(input, context) {
         const data = getJSONFromRelativeURL(input.token);
         const productAddress = getProductAddress(input.din);
-        editDatasetDetails(input.details);
+        var isEdited = editDatasetDetails(input.details);
+        return isEdited;
     },
 });
 
@@ -107,11 +116,14 @@ const deleteDataset = mutationWithClientMutationId ({
         },
     },
     outputFields: {
-
+        isDeleted: {
+            type: GraphQLBoolean,
+        },
     },
     async mutateAndGetPayload(input, context) {
         const data = getJSONFromRelativeURL(input.token);
-        deleteDataset(input.din, data.blockchain_address);
+        var isDeleted = deleteDataset(input.din, data.blockchain_address);
+        return isDeleted;
     },
 });
 
@@ -127,7 +139,13 @@ const buyDataset = mutationWithClientMutationId ({
         },
     },
     outputFields: {
+        din: {
+            type: GraphQLFloat,
+        },
 
+        accessAuth: {
+            type: GraphQLString,
+        },
     },
     async mutateAndGetPayload(input, context) {
         const data = getJSONFromRelativeURL(input.token);

@@ -89,12 +89,21 @@ const editNotebook = mutationWithClientMutationId ({
         },
     },
     outputFields: {
+        outputFields: {
+            isEdited: {
+                type: GraphQLBoolean,
+            },
 
+            details: {
+                type: TrainedModelDetails,
+            },
+        },
     },
     async mutateAndGetPayload(input, context) {
         const data = getJSONFromRelativeURL(input.token);
         const productAddress = getProductAddress(input.din);
-        editNotebookDetails(input.details);
+        var isEdited = editNotebookDetails(input.details);
+        return isEdited;
     },
 });
 
@@ -110,11 +119,14 @@ const deleteNotebook = mutationWithClientMutationId ({
         },
     },
     outputFields: {
-
+        isDeleted: {
+            type: GraphQLBoolean,
+        },
     },
     async mutateAndGetPayload(input, context) {
         const data = getJSONFromRelativeURL(input.token);
-        deleteNotebook(input.din, data.blockchain_address);
+        var isDeleted = deleteNotebook(input.din, data.blockchain_address);
+        return isDeleted;
     },
 });
 
@@ -130,7 +142,13 @@ const buyNotebook = mutationWithClientMutationId ({
         },
     },
     outputFields: {
+        din: {
+            type: GraphQLFloat,
+        },
 
+        accessAuth: {
+            type: GraphQLString,
+        },
     },
     async mutateAndGetPayload(input, context) {
         const data = getJSONFromRelativeURL(input.token);
