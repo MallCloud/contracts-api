@@ -32,11 +32,11 @@ export default new GraphQLSchema({
             deleteDataset,
             buyDataset,
             sellDataset,
-            createAPI,
-            editAPI,
-            deleteAPI,
-            buyAPI,
-            sellAPI,
+            createTrainedModel,
+            editTrainedModel,
+            deleteTrainedModel,
+            buyTrainedModel,
+            sellTrainedModel,
         },
     }),
 });
@@ -48,6 +48,7 @@ export default new GraphQLSchema({
 * Data
 * Notebook
 * Transaction
+* TrainedModel
 * User
 * Node
 
@@ -57,6 +58,8 @@ export default new GraphQLSchema({
 * NotebookType
 * TransactionType
 * UserType
+* ProductType
+* TrainedModelType
 
 ### GraphQL Mutations
 
@@ -70,8 +73,8 @@ export default new GraphQLSchema({
 * deleteDataset
 * buyDataset
 * sellDataset
-* createAPI
-* editAPI
-* deleteAPI
-* buyAPI
-* sellAPI
+* createTrainedModel
+* editTrainedModel
+* deleteTrainedModel
+* buyTrainedModel
+* sellTrainedModel
