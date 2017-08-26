@@ -3,19 +3,19 @@
 ### [`db.js`](./db.js) — database management
 
 The following commands can be used to transfer your existing database into another state and vise
-versa. Those state transitions are saved in migration files ([`migrations/*.js`](../migrations)),
+versa. Those state transitions are saved in migration files ([`migrationsData/*.js`](../migrationsData)),
 which describe the way how to get to the new state and how to revert the changes in order to get
 back to the old state.
 
 ```bash
-$ node tools/db version         # Print database schema version (see "migrations" db table)
+$ node tools/db version         # Print database schema version (see "migrationsData" db table)
 $ node tools/db migrate         # Migrate database schema to the latest version
 $ node tools/db rollback        # Rollback the latest migration
 $ node tools/db migration       # Create a new migration file from the template
 $ node tools/db seed            # Seed the database with some test data (see /seeds folder)
 ```
 
-For more information on how to use migrations reffer to [Knex documentation][knex].
+For more information on how to use migrationsData reffer to [Knex documentation][knex].
 
 This script is intended to be executed from inside a running Docker container, for example:
 

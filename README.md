@@ -106,7 +106,7 @@ node tools/publish <host>       # where <host> is the name of your web server (s
 ├── /build/                     # The compiled output (via Babel)
 ├── /config/                    # Configuration files (for Docker containers etc.)
 ├── /locales/                   # Localization resources (i18n)
-├── /migrations/                # Database schema migrations
+├── /migrationsData/                # Database schema migrationsData
 ├── /seeds/                     # Scripts with reference/sample data
 ├── /src/                       # Node.js application source files
 │   ├── /routes/                # Express routes, e.g. /login/facebook

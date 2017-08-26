@@ -19,8 +19,8 @@ const command = process.argv[2];
 const config = {
   client: 'pg',
   connection: process.env.DATABASE_URL,
-  migrations: {
-    tableName: 'migrations',
+  migrationsData: {
+    tableName: 'migrationsData',
   },
 };
 
@@ -45,7 +45,7 @@ module.exports = task('db', async () => {
         break;
       case 'migration':
         fs.writeFileSync(
-          `migrations/${version}_${process.argv[3] || 'new'}.js`,
+          `migrationsData/${version}_${process.argv[3] || 'new'}.js`,
           template,
           'utf8',
         );
