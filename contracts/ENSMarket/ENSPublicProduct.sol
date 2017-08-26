@@ -1,18 +1,18 @@
-import '../Product.sol';
-import '../DINRegistry.sol';
-import '../Market.sol';
-import './ENSMarket.sol';
-import './ENS/ENS.sol';
-
 pragma solidity ^0.4.11;
+
+import "../KioskMarketToken.sol";
+import "../Product.sol";
+import "../Market.sol";
+import "./ENS/ENS.sol";
 
 /**
 *  This is an example of how to sell an ENS domain.
 */
 contract ENSPublicProduct is Product {
 
-	ENSMarket public ensMarket;
 	ENS public ens;
+	KioskMarketToken public KMT;
+	Market public market;
 
 	struct ENSNode {
 		string name;
@@ -24,22 +24,29 @@ contract ENSPublicProduct is Product {
 	// DIN => ENS node
 	mapping(uint256 => ENSNode) public nodes;
 
-	// Constructor
-	function ENSPublicProduct(
-		DINRegistry _registry,
-		ENSMarket _market,
-		ENS _ens
-	)
-		Product(
-			_market,
-			_registry
-		)
-	{
-		ensMarket = _market;
-		ens = _ens;
+	modifier only_owner(uint256 DIN) {
+		require (KMT.dinRegistry().owner(DIN) == msg.sender);
+		_;
 	}
 
-	function addENSDomain(uint256 DIN, string name, bytes32 node, uint256 price) {
+	modifier only_market {
+		require (market == msg.sender);
+		_;
+	}
+
+	// Constructor
+	function ENSPublicProduct(KioskMarketToken _KMT, ENS _ens, Market _market) {
+		KMT = _KMT;
+		ens = _ens;
+		market = _market;
+	}
+
+	function addENSDomain(
+		uint256 DIN,
+		string name,
+		bytes32 node,
+		uint256 price
+	) only_owner(DIN) {
 		// Store the details of the ENS node.
 		nodes[DIN].name = name;
 		nodes[DIN].node = node;
