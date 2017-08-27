@@ -9,6 +9,7 @@ import {
     GraphQLNonNull,
     GraphQLFloat,
     GraphQLInt,
+    GraphQLBoolean,
 } from 'graphql';
 
 import {
@@ -107,9 +108,9 @@ const editTrainedModel = mutationWithClientMutationId ({
             type: GraphQLBoolean,
         },
 
-        details: {
-            type: TrainedModelDetails,
-        },
+        // details: {
+        //     type: TrainedModelDetails,
+        // },
     },
     async mutateAndGetPayload(input, context) {
         const data = getJSONFromRelativeURL(`/api/users/${input.userid}`, input.token);

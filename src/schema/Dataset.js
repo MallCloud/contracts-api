@@ -8,6 +8,8 @@ import {
     GraphQLString,
     GraphQLNonNull,
     GraphQLFloat,
+    GraphQLInt,
+    GraphQLBoolean,
 } from 'graphql';
 
 import {
@@ -93,21 +95,19 @@ const editDataset = mutationWithClientMutationId ({
         },
     },
     outputFields: {
-        outputFields: {
-            isEdited: {
-                type: GraphQLBoolean,
-            },
-
-            details: {
-                type: TrainedModelDetails,
-            },
+        isEdited: {
+            type: GraphQLBoolean,
         },
+        //
+        // details: {
+        //     type: DatasetDetails,
+        // },
     },
     async mutateAndGetPayload(input, context) {
         const data = getJSONFromRelativeURL(input.token);
         const productAddress = getProductAddress(input.din);
         var isEdited = editDatasetDetails(input.details);
-        return isEdited;
+        return true;
     },
 });
 
