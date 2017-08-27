@@ -49,14 +49,20 @@ const createDataset = mutationWithClientMutationId ({
         },
     },
     outputFields: {
+        din: {
+            type: GraphQLInt,
+        },
 
+        accessAuth: {
+            type: GraphQLString,
+        },
     },
     async mutateAndGetPayload(input, context) {
         return getJSONFromRelativeURL(`/api/users/${input.userid}`, input.token)
             .then(function(info) {
                 return DINConnectorInstance.createNewDIN(info.blockchain_address);
             })
-            .then(function(din) {
+            .then(function(din, auth) {
                 // const product = createNewDataset(input.details, din);
                 // connectToPublicResolver(product);
                 //
@@ -66,7 +72,8 @@ const createDataset = mutationWithClientMutationId ({
                 //
                 // sendInfoToPythonAPI(info);
                 var result = {
-                    din: din
+                    din: din,
+                    accessAuth: auth
                 };
 
                 return result;

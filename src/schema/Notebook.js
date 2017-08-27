@@ -52,14 +52,20 @@ const createNotebook = mutationWithClientMutationId ({
         },
     },
     outputFields: {
+        din: {
+            type: GraphQLInt,
+        },
 
+        accessAuth: {
+            type: GraphQLString,
+        },
     },
     async mutateAndGetPayload(input, context) {
         return getJSONFromRelativeURL(`/api/users/${input.userid}`, input.token)
             .then(function(info) {
                 return DINConnectorInstance.createNewDIN(info.blockchain_address);
             })
-            .then(function(din) {
+            .then(function(din, auth) {
                 // const product = createNewNotebook(input.details, din);
                 // connectToPublicResolver(product);
                 //
@@ -69,7 +75,8 @@ const createNotebook = mutationWithClientMutationId ({
                 //
                 // sendInfoToPythonAPI(info);
                 var result = {
-                    din: din
+                    din: din,
+                    accessAuth: auth
                 };
 
                 return result;

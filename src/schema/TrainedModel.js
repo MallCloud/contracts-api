@@ -62,13 +62,17 @@ const createTrainedModel = mutationWithClientMutationId ({
         din: {
             type: GraphQLInt,
         },
+
+        accessAuth: {
+            type: GraphQLString,
+        },
     },
     async mutateAndGetPayload(input, context) {
         return getJSONFromRelativeURL(`/api/users/${input.userid}`, input.token)
             .then(function(info) {
                 return DINConnectorInstance.createNewDIN(info.blockchain_address);
             })
-            .then(function(din) {
+            .then(function(din, auth) {
                 // const product = createNewTrainedModel(input.details, din);
                 // connectToPublicResolver(product);
                 //
@@ -78,7 +82,8 @@ const createTrainedModel = mutationWithClientMutationId ({
                 //
                 // sendInfoToPythonAPI(info);
                 var result = {
-                    din: din
+                    din: din,
+                    accessAuth: auth
                 };
 
                 return result;
