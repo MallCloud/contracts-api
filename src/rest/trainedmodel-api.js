@@ -3,13 +3,13 @@
 
 import fetch from 'node-fetch';
 
-const restnb_host = process.env.RESTAPIHOST || '35.193.0.206';
-const restnb_port = process.env.RESTAPIPORT || '8000';
+const resttm_host = process.env.RESTAPIHOST || '35.193.0.206';
+const resttm_port = process.env.RESTAPIPORT || '8000';
 
-const nb_url = 'http://' + restnb_host + ':' + restnb_port;
+const tm_url = 'http://' + resttm_host + ':' + resttm_port;
 
-function createNewNotebook(details) {
-    return fetch(nb_url + '/notebooks/', {
+function createNewTrainedModel(details) {
+    return fetch(tm_url + '/trainedmodels/', {
         method: "POST",
         body: JSON.stringify(details),
 
@@ -18,10 +18,10 @@ function createNewNotebook(details) {
             'Accept': 'application/json',
             'X-CSRFToken': 'Y9CL7MUmiZmngLftI4WWaQzQIDXSTOEmVBBDfhY7GVX14nrSOUla7hKTVWatutv6'
         }
-    })
+    });
 }
 
 
 module.exports = {
-    createNewNotebook,
+    createNewTrainedModel,
 };
