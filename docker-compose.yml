@@ -21,8 +21,7 @@ services:
 
   # Data API and authentication/authorization
   api:
-    image: kriasoft/node-ci:8.4.0-alpine
-    hostname: api
+    build: ./docker/api
     depends_on:
       - db
       - redis
@@ -38,17 +37,13 @@ services:
       - GOOGLE_SECRET=xxxxx
       - TWITTER_KEY=xxxxx
       - TWITTER_SECRET=xxxxx
-    expose:
-      - "8080"
     ports:
       - "127.0.0.1:9229:9229" # V8 inspector for tools/run.js
       - "127.0.0.1:9230:9230" # V8 inspector for src/server.js
     volumes:
       - yarn:/root/.cache/yarn
       - ./:/usr/src/app
-    user: node
-    working_dir: /usr/src/app
-    command: node tools/run.js # or, `node --inspect=0.0.0.0:9229 tools/run.js`
+    command: sh /start-up.sh # or, `node --inspect=0.0.0.0:9229 tools/run.js`
 
   # SQL and document data store
   db:
