@@ -4,6 +4,13 @@ RUN apk update &&\
     apk add git nodejs bash perl
 
 RUN cd /root &&\
+    git clone https://github.com/MallCloud/contracts &&\
+    cd contracts &&\
+    npm install &&\
+    npm install -g truffle &&\
+    cd ..
+
+RUN cd /root &&\
     git clone https://github.com/cubedro/eth-net-intelligence-api &&\
     cd eth-net-intelligence-api &&\
     npm install &&\
