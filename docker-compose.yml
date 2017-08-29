@@ -67,7 +67,7 @@ services:
     user: redis
 
   bootstrap:
-    build: ./docker/monitored-geth-client
+    build: ./docker/deployer
     restart: on-failure
     container_name: bootstrap
     hostname: bootstrap
@@ -81,9 +81,9 @@ services:
       - ./docker/files/keystore:/root/.ethereum/devchain/keystore:rw
       - /etc/localtime:/etc/localtime:ro
     ports:
-      - "30303:30303"
-      - "30303:30303/udp"
-      - "8545:8545"
+      - "30304:30304"
+      - "30304:30304/udp"
+      - "9000:9000"
 
   eth:
     build: ./docker/monitored-geth-client
