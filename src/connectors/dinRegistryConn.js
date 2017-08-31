@@ -9,7 +9,7 @@ import contract from 'truffle-contract';
 import path from 'path';
 
 var requireNoCache = require("require-nocache")(module);
-var provider = new Web3.providers.HttpProvider("http://127.0.0.1:8545");
+var provider = new Web3.providers.HttpProvider("http://172.21.0.6:8545");
 var temp = Temp.track();
 
 /**
