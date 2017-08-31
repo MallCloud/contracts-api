@@ -1,65 +1,94 @@
 pragma solidity ^0.4.11;
 
 import "./ENS/AbstractENS.sol";
-import "../PublicMarket.sol";
-import "../OrderTracker.sol";
+import "../ProductMarket.sol";
 import "../KioskMarketToken.sol";
 
-contract ENSMarket is PublicMarket {
+contract ENSMarket is ProductMarket {
 
-	string public title = "ENS Market";
+	string public name = "ENS Market";
 
 	// ENS Registry
-	AbstractENS public ens;
+	AbstractENS public 
+	ens;
 
-	struct ENSDomain {
+	struct Domain {
 		string name;
 		bytes32 node;
 	}
 
 	// DIN => ENS node
-	mapping(uint256 => ENSDomain) public domains;
+	mapping(uint256 => Domain) public domains;
+
+	// Buyer => Node of purchased domain
+	mapping(address => bytes32) public expected;
 
 	// Constructor
-	function ENSMarket(KioskMarketToken _KMT, AbstractENS _ens) PublicMarket(_KMT) {
+	function ENSMarket(KioskMarketToken _KMT, AbstractENS _ens) ProductMarket(_KMT) {
 		ens = _ens;
 	}
 
-	function orderData(uint256 _DIN, address _buyer) constant returns (bytes32) {
-		return ENSNode(_DIN);
+	function buy(uint256 orderID) only_buyer returns (bool) {
+		uint256 DIN = orderStore.DIN(orderID);
+		address buyer = orderStore.buyer(orderID);
+
+		// Expect the buyer to own the domain at the end of the transaction.
+		expected[buyer] = getNode(DIN);
+
+		super.buy(orderID);
+
+		// TODO: Clear storage.
+		// domains[DIN].name = "";
+		// domains[DIN].node = 0x0;
 	}
 
-	function isFulfilled(uint256 _orderID) constant returns (bool) {
-		// Get the ENS node from the order
-		bytes32 node = KMT.orderTracker().data(_orderID);
+	function isFulfilled(uint256 orderID) constant returns (bool) {
+		address buyer = orderStore.buyer(orderID);
+		bytes32 node = expected[buyer];
 
-		// Check that buyer is the owner
-		return (ens.owner(node) == KMT.orderTracker().buyer(_orderID));
+		// Check that buyer is the owner of the domain.
+		return (ens.owner(node) == buyer);
 	}
 
-	function availableForSale(uint256 _DIN, uint256 _quantity) constant returns (bool) {
-		// The owner of the node must be able to transfer it during a purchase.
-		if (ens.owner(ENSNode(_DIN)) != buyHandler(_DIN)) {
+	function nameOf(uint256 DIN) constant returns (string) {
+		return domains[DIN].name;
+	}
+
+	function metadata(uint256 DIN) constant returns (bytes32) {
+		return getNode(DIN);
+	}
+
+	function availableForSale(uint256 DIN, uint256 quantity, address buyer) constant returns (bool) {
+		// The owner of the domain must be able to transfer it during a purchase.
+		// This means the product must hold the domain for the transaction to succeed.
+		bytes32 node = getNode(DIN);
+
+		// Check that the product is the owner of the domain.
+		if (ens.owner(node) != products[DIN]) {
 			return false;
 		}
 
-		return PublicMarket.availableForSale(_DIN, _quantity);
+		return super.availableForSale(DIN, quantity, buyer);
 	}
 
-	function name(uint256 _DIN) constant returns (string) {
-		return domains[_DIN].name;
+	function addDomain(uint256 DIN, string name, bytes32 node) only_owner(DIN) {
+		// TODO: Add validation that the node matches the namehash of the name.
+		domains[DIN].name = name;
+		domains[DIN].node = node;
 	}
 
-	function setName(uint256 _DIN, string _name) only_trusted(_DIN) {
-		domains[_DIN].name = _name;
+	function setName(uint256 DIN, string name) only_owner(DIN) {
+		// TODO: Add validation
+		domains[DIN].name = name;
 	}
 
-	function ENSNode(uint256 _DIN) constant returns (bytes32) {
-		return domains[_DIN].node;
+	function getNode(uint256 DIN) constant returns (bytes32) {
+		return domains[DIN].node;
 	}
 
-	function setENSNode(uint256 _DIN, bytes32 _node) only_trusted(_DIN) {
-		domains[_DIN].node = _node;
+	function setNode(uint256 DIN, bytes32 node) only_owner(DIN) {
+		// TODO: Add validation
+		domains[DIN].node = node;
 	}
 
 }
