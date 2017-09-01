@@ -74,6 +74,70 @@ docker-compose exec db psql <db> -U postgres
 For the full list of automation scripts available in this project, please reffer to "scripts"
 section in the [`package.json`](./package.json) file and the [`tools`](./tools) folder.
 
+### Contract Deployment
+
+Docker based setup sets up private ethereum nodes that can be used in order to deploy smart contracts. The following instructions can be used in order to perform the deployment :
+
+There are 3 separate consoles that need to be opened with separate instructions put into them. They are mentioned here as Console 1, Console 2 & Console 3
+
+1. **[Console 1]** In the `contracts-api` repository, run `docker-compose up`.
+2. **[Console 2]** Run `docker exec -it contractsapi_eth_1 geth attach ipc://root/.ethereum/devchain/geth.ipc`.
+3. **[Console 2]** A wallet(ethereum account) needs to be used in this step. An already available account may be used here or a separate account may be created.
+
+    When a new account is created (for ease; use Metamask), the following steps need to be taken :
+    1. Keep the account address and private key at hand.
+    2. **[Console 2]** In console, run `web3.personal.importRawKey("<Private Key>","<New Password>")`.
+    This will add your account into the private node.
+
+4. **[Console 2]** After an account is setup, it needs to be unlocked. Run `web3.personal.unlockAccount(<account_address>, <password>, <timeduration>)`. For time duration, you may use any arbitrary number (I use 1500000000).
+5. **[Console 2]** Run `miner.setEtherbase(<account_address>)`.
+6. **[Console 2]** Run `miner.start()`.
+After the mining process starts, this kind of logs can be seen on the console :
+```
+eth_1        | INFO [09-01|19:51:53] Generating DAG in progress               epoch=0 percentage=1 elapsed=1m49.014s
+```
+You will need to wait until it becomes `percentage=100` before running further commands.
+
+7. In `contracts-api/truffle.js`, in networks.development.from, replace the address with your <account_address>.
+8. **[Console 3]** In `contracts-api` directory, run `truffle compile --all`.
+9. **[Console 3]** Run `truffle migrate`.
+
+Now the contracts have been successfully deployed to ethereum nodes. Hurray!!
+
+### Known Problem
+
+There might be such errors coming up on running `docker-compose up` :
+```
+api_1        | Error: Cannot find module './build/Release/scrypt'
+api_1        |     at Function.Module._resolveFilename (module.js:489:15)
+api_1        |     at Function.Module._load (module.js:439:25)
+api_1        |     at Module.require (module.js:517:17)
+api_1        |     at require (internal/module.js:11:18)
+api_1        |     at Object.<anonymous> (/usr/src/app/node_modules/scrypt/index.js:3:20)
+api_1        |     at Module._compile (module.js:573:30)
+api_1        |     at Module._extensions..js (module.js:584:10)
+api_1        |     at Object.require.extensions.(anonymous function) [as .js] (/usr/src/app/node_modules/babel-register/lib/node.js:152:7)
+api_1        |     at Module.load (module.js:507:32)
+api_1        |     at tryModuleLoad (module.js:470:12)
+api_1        |     at Function.Module._load (module.js:462:3)
+api_1        |     at Module.require (module.js:517:17)
+api_1        |     at require (internal/module.js:11:18)
+api_1        |     at Object.<anonymous> (/usr/src/app/node_modules/scrypt.js/node.js:1:14)
+api_1        |     at Module._compile (module.js:573:30)
+api_1        |     at Module._extensions..js (module.js:584:10)
+```
+
+In order to remove such errors, follow these instructions :
+
+```
+$ rm -rf ./node_modules
+$ yarn add ethereumjs-testrpc
+$ docker-compose run --rm --no-deps api yarn install
+# In this list, check if `ethereumjs-testrpc` is present. Continue if yes, repeat step 2 if no
+$ docker-compose run --rm --no-deps api ls ./node_modules
+$ docker-compose up
+```
+
 ### Testing
 
 ```bash
