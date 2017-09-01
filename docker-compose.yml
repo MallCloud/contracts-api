@@ -67,7 +67,7 @@ services:
     user: redis
 
   bootstrap:
-    build: ./docker/deployer
+    build: ./docker/monitored-geth-client
     restart: on-failure
     container_name: bootstrap
     hostname: bootstrap
