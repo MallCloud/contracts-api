@@ -26,8 +26,13 @@ import {
     DatasetDetails,
 } from './DatasetType';
 
+import {
+    getJSONFromRelativeURL,
+    getJSONFromRelativeURLUsingCred,
+} from '../rest/user-api';
+
 import { ProductType } from './ProductType';
-import { DINConnectorInstance } from '../connectors/dinRegistryConn';
+import DINConnectorInstance from '../connectors/dinRegistryConn';
 
 const datasetQuery = {
     type: DatasetType,
@@ -42,6 +47,10 @@ const datasetQuery = {
 const createDataset = mutationWithClientMutationId ({
     name: 'CreateDataset',
     inputFields: {
+        userid: {
+            type: GraphQLInt,
+        },
+
         token: {
             type: GraphQLString,
         },
@@ -86,6 +95,10 @@ const createDataset = mutationWithClientMutationId ({
 const editDataset = mutationWithClientMutationId ({
     name: 'EditDataset',
     inputFields: {
+        userid: {
+            type: GraphQLInt,
+        },
+
         token: {
             type: GraphQLString,
         },
@@ -114,6 +127,10 @@ const editDataset = mutationWithClientMutationId ({
 const deleteDataset = mutationWithClientMutationId ({
     name: 'DeleteDataset',
     inputFields: {
+        userid: {
+            type: GraphQLInt,
+        },
+
         token: {
             type: GraphQLString,
         },
@@ -137,6 +154,10 @@ const deleteDataset = mutationWithClientMutationId ({
 const buyDataset = mutationWithClientMutationId ({
     name: 'BuyDataset',
     inputFields: {
+        userid: {
+            type: GraphQLInt,
+        },
+
         token: {
             type: GraphQLString,
         },
@@ -170,6 +191,10 @@ const buyDataset = mutationWithClientMutationId ({
 const sellDataset = mutationWithClientMutationId ({
     name: 'SellDataset',
     inputFields: {
+        userid: {
+            type: GraphQLInt,
+        },
+
         token: {
             type: GraphQLString,
         },

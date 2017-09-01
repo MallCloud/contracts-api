@@ -29,8 +29,11 @@ import {
 import { ProductType } from './ProductType';
 
 import {
-    DINConnectorInstance
-} from '../connectors/dinRegistryConn';
+    getJSONFromRelativeURL,
+    getJSONFromRelativeURLUsingCred,
+} from '../rest/user-api';
+
+import DINConnectorInstance from '../connectors/dinRegistryConn';
 
 const notebookQuery = {
     type: NotebookType,
@@ -45,6 +48,10 @@ const notebookQuery = {
 const createNotebook = mutationWithClientMutationId ({
     name: 'CreateNotebook',
     inputFields: {
+        userid: {
+            type: GraphQLInt,
+        },
+
         token: {
             type: GraphQLString,
         },
@@ -89,6 +96,10 @@ const createNotebook = mutationWithClientMutationId ({
 const editNotebook = mutationWithClientMutationId ({
     name: 'EditNotebook',
     inputFields: {
+        userid: {
+            type: GraphQLInt,
+        },
+
         token: {
             type: GraphQLString,
         },
@@ -117,6 +128,10 @@ const editNotebook = mutationWithClientMutationId ({
 const deleteNotebook = mutationWithClientMutationId ({
     name: 'DeleteNotebook',
     inputFields: {
+        userid: {
+            type: GraphQLInt,
+        },
+
         token: {
             type: GraphQLString,
         },
@@ -140,6 +155,10 @@ const deleteNotebook = mutationWithClientMutationId ({
 const buyNotebook = mutationWithClientMutationId ({
     name: 'BuyNotebook',
     inputFields: {
+        userid: {
+            type: GraphQLInt,
+        },
+
         token: {
             type: GraphQLString,
         },
@@ -173,6 +192,10 @@ const buyNotebook = mutationWithClientMutationId ({
 const sellNotebook = mutationWithClientMutationId ({
     name: 'SellNotebook',
     inputFields: {
+        userid: {
+            type: GraphQLInt,
+        },
+
         token: {
             type: GraphQLString,
         },

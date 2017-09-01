@@ -95,6 +95,10 @@ const createTrainedModel = mutationWithClientMutationId ({
 const editTrainedModel = mutationWithClientMutationId ({
     name: 'EditTrainedModel',
     inputFields: {
+        userid: {
+            type: GraphQLInt,
+        },
+
         token: {
             type: GraphQLString,
         },
@@ -123,6 +127,10 @@ const editTrainedModel = mutationWithClientMutationId ({
 const deleteTrainedModel = mutationWithClientMutationId ({
     name: 'DeleteTrainedModel',
     inputFields: {
+        userid: {
+            type: GraphQLInt,
+        },
+
         token: {
             type: GraphQLString,
         },
@@ -146,6 +154,10 @@ const deleteTrainedModel = mutationWithClientMutationId ({
 const buyTrainedModel = mutationWithClientMutationId ({
     name: 'BuyTrainedModel',
     inputFields: {
+        userid: {
+            type: GraphQLInt,
+        },
+
         token: {
             type: GraphQLString,
         },
@@ -179,6 +191,10 @@ const buyTrainedModel = mutationWithClientMutationId ({
 const sellTrainedModel = mutationWithClientMutationId ({
     name: 'SellTrainedModel',
     inputFields: {
+        userid: {
+            type: GraphQLInt,
+        },
+        
         token: {
             type: GraphQLString,
         },
