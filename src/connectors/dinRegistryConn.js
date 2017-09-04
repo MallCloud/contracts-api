@@ -9,7 +9,8 @@ import contract from 'truffle-contract';
 import path from 'path';
 
 var requireNoCache = require("require-nocache")(module);
-var provider = new Web3.providers.HttpProvider("http://172.21.0.6:8545");
+var url = 'http://172.21.0.5:8545';
+var provider = new Web3.providers.HttpProvider(url);
 var temp = Temp.track();
 
 /**
@@ -60,7 +61,7 @@ const DINConnectorInstance = {
             this.web3Provider = this.web3.currentProvider;
             this.web3 = new Web3(this.web3Provider);
         } else {
-            this.web3Provider = new Web3.providers.HttpProvider('http://localhost:8545');
+            this.web3Provider = new Web3.providers.HttpProvider(url);
             this.web3 = new Web3(this.web3Provider);
         }
     },
@@ -122,21 +123,20 @@ const DINConnectorInstance = {
      */
     createNewDIN: function(account) {
         this.getProvider();
-        // this.networkCheck();
+        this.networkCheck();
         this.getContract();
 
         this.account = account;
-        this.contractAddr = "0xbeb47f08ee882c4c2f18958bed17fa5a12cf9b70";
+        this.contractAddr = "0x3915aa9b60debe6939b219a29032264e4c267478";
 
         return this.contracts.DINRegistry.at(this.contractAddr)
             .then(function(instance) {
-                console.log('chal ja mc');
                 var contractInstance = instance;
 
-                var event = contractInstance.NewRegistration({owner: this.account});
+                var event = contractInstance.NewRegistration({owner: account});
                 event.watch(this.callback);
 
-                return contractInstance.registerDIN({from: this.account})
+                return contractInstance.registerDIN({from: account})
                     .then(function() {
                         event.stopWatching();
                         console.log(logger);

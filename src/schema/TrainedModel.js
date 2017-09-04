@@ -36,11 +36,20 @@ import DINConnectorInstance from '../connectors/dinRegistryConn';
 
 const tmQuery = {
     type: TrainedModelType,
+
     args: {
         id: {type: new GraphQLNonNull(GraphQLID)},
-	},
-    resolve(root, args) {
+        username: {type: GraphQLString},
+        password: {type: GraphQLString},
+    },
 
+    resolve(root, args) {
+        var info = {
+            "username": args.username,
+            "password": args.password
+    	};
+
+    	return getJSONFromRelativeURLUsingCred(`/api/trainedmodels/${args.id}`, info);
     },
 };
 
@@ -194,7 +203,7 @@ const sellTrainedModel = mutationWithClientMutationId ({
         userid: {
             type: GraphQLInt,
         },
-        
+
         token: {
             type: GraphQLString,
         },

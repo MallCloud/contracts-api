@@ -37,11 +37,20 @@ import DINConnectorInstance from '../connectors/dinRegistryConn';
 
 const notebookQuery = {
     type: NotebookType,
+
     args: {
         id: {type: new GraphQLNonNull(GraphQLID)},
-	},
-    resolve(root, args) {
+        username: {type: GraphQLString},
+        password: {type: GraphQLString},
+    },
 
+    resolve(root, args) {
+        var info = {
+            "username": args.username,
+            "password": args.password
+    	};
+
+    	return getJSONFromRelativeURLUsingCred(`/api/notebooks/${args.id}`, info);
     },
 };
 
