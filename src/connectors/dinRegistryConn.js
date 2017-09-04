@@ -122,21 +122,25 @@ const DINConnectorInstance = {
      * @return {[uint]} din     [newly minted DIN]
      */
     createNewDIN: function(account) {
+        const self = this;
+
         this.getProvider();
         this.networkCheck();
         this.getContract();
 
-        this.account = account;
-        this.contractAddr = "0x3915aa9b60debe6939b219a29032264e4c267478";
+        self.account = account;
+        self.contractAddr = "0xf36d244d2f3625cc6833aed20901d2d35fece254";
 
-        return this.contracts.DINRegistry.at(this.contractAddr)
+        return self.contracts.DINRegistry.at(self.contractAddr)
             .then(function(instance) {
+                console.log(self.callback);
                 var contractInstance = instance;
 
-                var event = contractInstance.NewRegistration({owner: account});
-                event.watch(this.callback);
+                var event = contractInstance.NewRegistration({owner: self.account});
+                event.watch(self.callback);
 
-                return contractInstance.registerDIN({from: account})
+                console.log(contractInstance);
+                return contractInstance.registerNewDIN({from:self. account})
                     .then(function() {
                         event.stopWatching();
                         console.log(logger);
