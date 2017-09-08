@@ -17,6 +17,11 @@ contract Buyer {
 	// The Order Maker contract.
 	OrderMaker public orderMaker;
 
+	modifier only_KMT {
+		require (KMT == msg.sender);
+		_;
+	}
+
 	// Constructor
 	function Buyer(KioskMarketToken _KMT) {
 		KMT = _KMT;
@@ -27,44 +32,67 @@ contract Buyer {
 	* Buy a product.
 	* @param DIN The DIN of the product to buy.
 	* @param quantity The quantity to buy.
-	* @param value The total price of the product(s).
+	* @param totalValue The total price of the product(s).
 	*/
-	function buy(uint256 DIN, uint256 quantity, uint256 value) returns (uint256) {
+	function buy(
+		uint256 DIN, 
+		uint256 quantity, 
+		uint256 totalValue, 
+		address buyer
+	) 
+		public
+		only_KMT 
+		returns (uint256) 
+	{
 		// Get the Market.
 		address marketAddr = registry.market(DIN);
 		Market market = Market(marketAddr);
 
 		// The buyer must have enough tokens for the purchase.
-		require (KMT.balanceOf(msg.sender) >= value);
+		require (KMT.balanceOf(buyer) >= totalValue);
 
 		// The requested quantity must be available for sale.
-		require(market.availableForSale(DIN, quantity, msg.sender) == true);
+		require(market.availableForSale(DIN, quantity, buyer) == true);
 
 		// The value must match the market price. 
-		require(market.totalPrice(DIN, quantity, msg.sender) == value);
+		require(market.totalPrice(DIN, quantity, buyer) == totalValue);
 
+		// If conditions are met, call the private buyProduct method to complete the transaction.
+		return buyProduct(DIN, quantity, totalValue, buyer, market);
+	}
+
+	function buyProduct(
+		uint256 DIN, 
+		uint256 quantity, 
+		uint256 totalValue,
+		address buyer, 
+		Market market
+	) 
+		private
+		returns (uint256)
+	{
 		// Add the order to the order tracker and get the order ID.
 		uint256 orderID = orderMaker.addOrder(
-			msg.sender, // Buyer
+			buyer,
 			registry.owner(DIN), // Seller
 			market,
 			DIN,
 			market.metadata(DIN),
-			value,
+			totalValue,
 			quantity,
 			block.timestamp
 		);
 
 		// Tell the market to execute the order.
-		market.buy(orderID);
+		market.buy(DIN, quantity, buyer);
 
 		// Throw if the market does not fulfill the order.
-		// Right now, Buyer only supports transactions that can be settled immediately (e.g., instant delivery).
+		// Right now, Buyer only supports transactions that can be settled immediately (i.e., instant delivery).
 		require(market.isFulfilled(orderID) == true);
 			
 		// Transfer the value of the order from the buyer to the market.
-		if (value > 0) {
-			KMT.transferFrom(msg.sender, marketAddr, value);
+		if (totalValue > 0) {
+			KMT.transferFrom(buyer, market, totalValue);
 		}
 
 		// Mark the order fulfilled.
