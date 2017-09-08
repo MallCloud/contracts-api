@@ -15,12 +15,12 @@ const tld = "eth";
 const rootNode = getRootNodeFromTLD(tld);
 const subnodeSHA3 = web3.sha3("example");
 const subnodeName = "example.eth";
-const subnodeNameHash = namehash(subnodeName);
+const subnodeNameHash = namehash.hash(subnodeName);
 const subnodePrice = web3.toWei(2, "ether"); // Price in KMT, just using web3 for decimal conversion
 
 const offChainSHA3 = web3.sha3("offthechain");
 const offChainSubnodeName = "offthechain.eth";
-const offChainNameHash = namehash(offChainSubnodeName);
+const offChainNameHash = namehash.hash(offChainSubnodeName);
 const offChainPrice = web3.toWei(100, "ether");
 
 const initialSupply = web3.toWei(1000000, "ether"); // Initialize KMT with 1 million tokens
@@ -32,7 +32,7 @@ const genesis = 1000000000; // The genesis DIN (used for DIN product)
  */
 function getRootNodeFromTLD(tld) {
   return {
-    namehash: namehash(tld),
+    namehash: namehash.hash(tld),
     sha3: web3.sha3(tld)
   };
 }
