@@ -1,5 +1,5 @@
 {
-  "contract_name": "Market",
+  "contract_name": "PricedMarket",
   "abi": [
     {
       "constant": true,
@@ -77,6 +77,36 @@
       "type": "function"
     },
     {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "DIN",
+          "type": "uint256"
+        },
+        {
+          "name": "quantity",
+          "type": "uint256"
+        },
+        {
+          "name": "value",
+          "type": "uint256"
+        },
+        {
+          "name": "buyer",
+          "type": "address"
+        }
+      ],
+      "name": "buy",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "type": "function"
+    },
+    {
       "constant": true,
       "inputs": [
         {
@@ -97,40 +127,6 @@
         {
           "name": "",
           "type": "uint256"
-        }
-      ],
-      "payable": false,
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "DIN",
-          "type": "uint256"
-        },
-        {
-          "name": "quantity",
-          "type": "uint256"
-        },
-        {
-          "name": "value",
-          "type": "uint256"
-        },
-        {
-          "name": "buyer",
-          "type": "address"
-        },
-        {
-          "name": "approved",
-          "type": "bool"
-        }
-      ],
-      "name": "buy",
-      "outputs": [
-        {
-          "name": "",
-          "type": "bool"
         }
       ],
       "payable": false,
@@ -158,5 +154,5 @@
   "unlinked_binary": "0x",
   "networks": {},
   "schema_version": "0.0.5",
-  "updated_at": 1505110681569
+  "updated_at": 1504931432353
 }

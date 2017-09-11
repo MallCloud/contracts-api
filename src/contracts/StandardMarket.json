@@ -9,6 +9,45 @@
           "type": "uint256"
         }
       ],
+      "name": "nameOf",
+      "outputs": [
+        {
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "DIN",
+          "type": "uint256"
+        },
+        {
+          "name": "quantity",
+          "type": "uint256"
+        },
+        {
+          "name": "buyer",
+          "type": "address"
+        }
+      ],
+      "name": "availableForSale",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
       "name": "name",
       "outputs": [
         {
@@ -38,15 +77,28 @@
       "type": "function"
     },
     {
-      "constant": false,
-      "inputs": [
+      "constant": true,
+      "inputs": [],
+      "name": "orderStore",
+      "outputs": [
         {
-          "name": "orderID",
-          "type": "uint256"
+          "name": "",
+          "type": "address"
         }
       ],
-      "name": "withdraw",
-      "outputs": [],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "registrar",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
       "payable": false,
       "type": "function"
     },
@@ -66,11 +118,32 @@
           "type": "address"
         }
       ],
-      "name": "price",
+      "name": "totalPrice",
       "outputs": [
         {
           "name": "",
           "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [],
+      "name": "updateKiosk",
+      "outputs": [],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "registry",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
         }
       ],
       "payable": false,
@@ -79,11 +152,11 @@
     {
       "constant": true,
       "inputs": [],
-      "name": "title",
+      "name": "orderMaker",
       "outputs": [
         {
           "name": "",
-          "type": "string"
+          "type": "address"
         }
       ],
       "payable": false,
@@ -91,21 +164,25 @@
     },
     {
       "constant": true,
-      "inputs": [
-        {
-          "name": "DIN",
-          "type": "uint256"
-        },
-        {
-          "name": "quantity",
-          "type": "uint256"
-        }
-      ],
-      "name": "availableForSale",
+      "inputs": [],
+      "name": "KMT",
       "outputs": [
         {
           "name": "",
-          "type": "bool"
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "kiosk",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
         }
       ],
       "payable": false,
@@ -115,8 +192,24 @@
       "constant": false,
       "inputs": [
         {
-          "name": "orderID",
+          "name": "DIN",
           "type": "uint256"
+        },
+        {
+          "name": "quantity",
+          "type": "uint256"
+        },
+        {
+          "name": "value",
+          "type": "uint256"
+        },
+        {
+          "name": "buyer",
+          "type": "address"
+        },
+        {
+          "name": "approved",
+          "type": "bool"
         }
       ],
       "name": "buy",
@@ -131,17 +224,26 @@
     },
     {
       "constant": true,
+      "inputs": [],
+      "name": "buyContract",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": true,
       "inputs": [
         {
           "name": "DIN",
           "type": "uint256"
-        },
-        {
-          "name": "buyer",
-          "type": "address"
         }
       ],
-      "name": "orderData",
+      "name": "metadata",
       "outputs": [
         {
           "name": "",
@@ -150,10 +252,24 @@
       ],
       "payable": false,
       "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "name": "_kiosk",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "type": "constructor"
+    },
+    {
+      "payable": false,
+      "type": "fallback"
     }
   ],
   "unlinked_binary": "0x",
   "networks": {},
   "schema_version": "0.0.5",
-  "updated_at": 1503737311747
+  "updated_at": 1505110681569
 }

@@ -2,32 +2,6 @@
   "contract_name": "DINRegistry",
   "abi": [
     {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "owner",
-          "type": "address"
-        }
-      ],
-      "name": "registerDINForOwner",
-      "outputs": [
-        {
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "payable": false,
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [],
-      "name": "registerDIN",
-      "outputs": [],
-      "payable": false,
-      "type": "function"
-    },
-    {
       "constant": true,
       "inputs": [
         {
@@ -46,44 +20,9 @@
       "type": "function"
     },
     {
-      "constant": true,
+      "constant": false,
       "inputs": [],
-      "name": "index",
-      "outputs": [
-        {
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "payable": false,
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "quantity",
-          "type": "uint256"
-        }
-      ],
-      "name": "registerDINs",
-      "outputs": [],
-      "payable": false,
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "quantity",
-          "type": "uint256"
-        },
-        {
-          "name": "owner",
-          "type": "address"
-        }
-      ],
-      "name": "registerDINsForOwner",
+      "name": "updateKiosk",
       "outputs": [],
       "payable": false,
       "type": "function"
@@ -102,6 +41,19 @@
       ],
       "name": "setOwner",
       "outputs": [],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "kiosk",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
       "payable": false,
       "type": "function"
     },
@@ -144,6 +96,36 @@
           "type": "uint256"
         },
         {
+          "name": "owner",
+          "type": "address"
+        }
+      ],
+      "name": "register",
+      "outputs": [],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "registrarAddr",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "DIN",
+          "type": "uint256"
+        },
+        {
           "name": "market",
           "type": "address"
         }
@@ -155,6 +137,10 @@
     },
     {
       "inputs": [
+        {
+          "name": "_kiosk",
+          "type": "address"
+        },
         {
           "name": "_genesis",
           "type": "uint256"
@@ -173,12 +159,7 @@
         },
         {
           "indexed": true,
-          "name": "newOwner",
-          "type": "address"
-        },
-        {
-          "indexed": true,
-          "name": "oldOwner",
+          "name": "owner",
           "type": "address"
         }
       ],
@@ -220,8 +201,357 @@
       "type": "event"
     }
   ],
-  "unlinked_binary": "0x6060604052341561000f57600080fd5b604051602080610581833981016040528080519150505b60018181556002829055600082815260208190526040908190208054600160a060020a03191633600160a060020a03169081179091559154907fef8ea3d0ef6bf7f673a09aa675838d76573d86e5a9fc235846ac3f54195d7217905160405180910390a35b505b6104e58061009c6000396000f300606060405236156100a15763ffffffff7c010000000000000000000000000000000000000000000000000000000060003504166308e7ed0581146100a65780631196245b146100d757806328861d22146100ec5780632986c0e51461011e578063516ed622146101435780636fa91c381461015b5780637fd392471461017f578063a123c33e146101a3578063a7f0b3de146101d5578063f4b2ad14146101fa575b600080fd5b34156100b157600080fd5b6100c5600160a060020a036004351661021e565b60405190815260200160405180910390f35b34156100e257600080fd5b6100ea6102c7565b005b34156100f757600080fd5b6101026004356102d4565b604051600160a060020a03909116815260200160405180910390f35b341561012957600080fd5b6100c56102f5565b60405190815260200160405180910390f35b341561014e57600080fd5b6100ea6004356102fb565b005b341561016657600080fd5b6100ea600435600160a060020a0360243516610309565b005b341561018a57600080fd5b6100ea600435600160a060020a036024351661035f565b005b34156101ae57600080fd5b6101026004356103fb565b604051600160a060020a03909116815260200160405180910390f35b34156101e057600080fd5b6100c5610419565b60405190815260200160405180910390f35b341561020557600080fd5b6100ea600435600160a060020a036024351661041f565b005b600060015433600160a060020a0316610236826102d4565b600160a060020a03161461024957600080fd5b6002805460010180825560009081526020819052604090819020805473ffffffffffffffffffffffffffffffffffffffff1916600160a060020a0387169081179091559154907fef8ea3d0ef6bf7f673a09aa675838d76573d86e5a9fc235846ac3f54195d7217905160405180910390a360025491505b5b50919050565b6102d03361021e565b505b565b600081815260208190526040902060010154600160a060020a03165b919050565b60025481565b6102d08133610309565b5b50565b600060015433600160a060020a0316610321826102d4565b600160a060020a03161461033457600080fd5b600091505b838210156103575761034a8361021e565b505b600190910190610339565b5b5b50505050565b600082815260208190526040902054829033600160a060020a0390811691161461038857600080fd5b60008381526020819052604090819020805473ffffffffffffffffffffffffffffffffffffffff1916600160a060020a03858116918217909255339091169185907ff7c4750a805ef7d91b01813e1a9e6eb976bc93f66d65cb50116b5d74b14ef237905160405180910390a45b5b505050565b600081815260208190526040902054600160a060020a03165b919050565b60015481565b600082815260208190526040902054829033600160a060020a0390811691161461044857600080fd5b60008381526020819052604090819020600101805473ffffffffffffffffffffffffffffffffffffffff1916600160a060020a0385169081179091559084907f4582f3d992ffac5686bfcf1936b27b7983244893d40847f87b6e297b1359dab9905160405180910390a35b5b5050505600a165627a7a72305820897ad76a523ca7ffaa7203dd45e7e8015bacc383ae47c16a275a31d5b26857060029",
-  "networks": {},
+  "unlinked_binary": "0x6060604052341561000f57600080fd5b60405160408061065f83398101604052808051919060200180519150505b60008054600160a060020a03808516600160a060020a031992831617835560038481558484526001602052604093849020805433909316929093168217909255905490917fef8ea3d0ef6bf7f673a09aa675838d76573d86e5a9fc235846ac3f54195d7217905160405180910390a36100b16401000000006102256100b982021704565b5b5050610158565b60008054600160a060020a031690632b20e39790604051602001526040518163ffffffff167c0100000000000000000000000000000000000000000000000000000000028152600401602060405180830381600087803b151561011b57600080fd5b6102c65a03f1151561012c57600080fd5b505050604051805160028054600160a060020a031916600160a060020a0392909216919091179055505b565b6104f8806101676000396000f300606060405236156100965763ffffffff7c010000000000000000000000000000000000000000000000000000000060003504166328861d22811461009b5780636c261859146100cd5780637fd39247146100e2578063a002d5f414610106578063a123c33e14610135578063a7f0b3de14610167578063dbbdf0831461018c578063eb04906a146101b0578063f4b2ad14146101df575b600080fd5b34156100a657600080fd5b6100b1600435610203565b604051600160a060020a03909116815260200160405180910390f35b34156100d857600080fd5b6100e0610225565b005b34156100ed57600080fd5b6100e0600435600160a060020a03602435166102d1565b005b341561011157600080fd5b6100b1610368565b604051600160a060020a03909116815260200160405180910390f35b341561014057600080fd5b6100b1600435610377565b604051600160a060020a03909116815260200160405180910390f35b341561017257600080fd5b61017a610395565b60405190815260200160405180910390f35b341561019757600080fd5b6100e0600435600160a060020a036024351661039b565b005b34156101bb57600080fd5b6100b1610423565b604051600160a060020a03909116815260200160405180910390f35b34156101ea57600080fd5b6100e0600435600160a060020a0360243516610432565b005b60008181526001602081905260409091200154600160a060020a03165b919050565b60008054600160a060020a031690632b20e39790604051602001526040518163ffffffff167c0100000000000000000000000000000000000000000000000000000000028152600401602060405180830381600087803b151561028757600080fd5b6102c65a03f1151561029857600080fd5b50505060405180516002805473ffffffffffffffffffffffffffffffffffffffff1916600160a060020a0392909216919091179055505b565b600082815260016020526040902054829033600160a060020a039081169116146102fa57600080fd5b60008381526001602052604090819020805473ffffffffffffffffffffffffffffffffffffffff1916600160a060020a0385169081179091559084907f4c5d8ccfd4f32dad0c449108334c94e0bada87b1453ad71e79e233545f4c48a6905160405180910390a35b5b505050565b600054600160a060020a031681565b600081815260016020526040902054600160a060020a03165b919050565b60035481565b60025433600160a060020a039081169116146103b657600080fd5b60008281526001602052604090819020805473ffffffffffffffffffffffffffffffffffffffff1916600160a060020a0384169081179091559083907fef8ea3d0ef6bf7f673a09aa675838d76573d86e5a9fc235846ac3f54195d7217905160405180910390a35b5b5050565b600254600160a060020a031681565b600082815260016020526040902054829033600160a060020a0390811691161461045b57600080fd5b60008381526001602081905260409182902001805473ffffffffffffffffffffffffffffffffffffffff1916600160a060020a0385169081179091559084907f4582f3d992ffac5686bfcf1936b27b7983244893d40847f87b6e297b1359dab9905160405180910390a35b5b5050505600a165627a7a72305820ca85ad9cef8324a3e831294b2d4d0f61ed776631b60691784c1c1f33a23d564b0029",
+  "networks": {
+    "42": {
+      "events": {
+        "0x4c5d8ccfd4f32dad0c449108334c94e0bada87b1453ad71e79e233545f4c48a6": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "DIN",
+              "type": "uint256"
+            },
+            {
+              "indexed": true,
+              "name": "owner",
+              "type": "address"
+            }
+          ],
+          "name": "NewOwner",
+          "type": "event"
+        },
+        "0x4582f3d992ffac5686bfcf1936b27b7983244893d40847f87b6e297b1359dab9": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "DIN",
+              "type": "uint256"
+            },
+            {
+              "indexed": true,
+              "name": "market",
+              "type": "address"
+            }
+          ],
+          "name": "NewMarket",
+          "type": "event"
+        },
+        "0xef8ea3d0ef6bf7f673a09aa675838d76573d86e5a9fc235846ac3f54195d7217": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "DIN",
+              "type": "uint256"
+            },
+            {
+              "indexed": true,
+              "name": "owner",
+              "type": "address"
+            }
+          ],
+          "name": "NewRegistration",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0x1e5c9c06f4aff9747077eadff0ee12bbca3b7d65",
+      "updated_at": 1505106496293
+    },
+    "456719": {
+      "events": {
+        "0x4c5d8ccfd4f32dad0c449108334c94e0bada87b1453ad71e79e233545f4c48a6": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "DIN",
+              "type": "uint256"
+            },
+            {
+              "indexed": true,
+              "name": "owner",
+              "type": "address"
+            }
+          ],
+          "name": "NewOwner",
+          "type": "event"
+        },
+        "0x4582f3d992ffac5686bfcf1936b27b7983244893d40847f87b6e297b1359dab9": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "DIN",
+              "type": "uint256"
+            },
+            {
+              "indexed": true,
+              "name": "market",
+              "type": "address"
+            }
+          ],
+          "name": "NewMarket",
+          "type": "event"
+        },
+        "0xef8ea3d0ef6bf7f673a09aa675838d76573d86e5a9fc235846ac3f54195d7217": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "DIN",
+              "type": "uint256"
+            },
+            {
+              "indexed": true,
+              "name": "owner",
+              "type": "address"
+            }
+          ],
+          "name": "NewRegistration",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0x9d6ba195a672df7db8b0aa473a667449105e9677",
+      "updated_at": 1505117957002
+    },
+    "1504411528284": {
+      "events": {
+        "0x4c5d8ccfd4f32dad0c449108334c94e0bada87b1453ad71e79e233545f4c48a6": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "DIN",
+              "type": "uint256"
+            },
+            {
+              "indexed": true,
+              "name": "owner",
+              "type": "address"
+            }
+          ],
+          "name": "NewOwner",
+          "type": "event"
+        },
+        "0x4582f3d992ffac5686bfcf1936b27b7983244893d40847f87b6e297b1359dab9": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "DIN",
+              "type": "uint256"
+            },
+            {
+              "indexed": true,
+              "name": "market",
+              "type": "address"
+            }
+          ],
+          "name": "NewMarket",
+          "type": "event"
+        },
+        "0xef8ea3d0ef6bf7f673a09aa675838d76573d86e5a9fc235846ac3f54195d7217": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "DIN",
+              "type": "uint256"
+            },
+            {
+              "indexed": true,
+              "name": "owner",
+              "type": "address"
+            }
+          ],
+          "name": "NewRegistration",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0x3446dc29062890810f87cf9ebb5dba8f764f1e5b",
+      "updated_at": 1504476752899
+    },
+    "1504557658453": {
+      "events": {
+        "0x4c5d8ccfd4f32dad0c449108334c94e0bada87b1453ad71e79e233545f4c48a6": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "DIN",
+              "type": "uint256"
+            },
+            {
+              "indexed": true,
+              "name": "owner",
+              "type": "address"
+            }
+          ],
+          "name": "NewOwner",
+          "type": "event"
+        },
+        "0x4582f3d992ffac5686bfcf1936b27b7983244893d40847f87b6e297b1359dab9": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "DIN",
+              "type": "uint256"
+            },
+            {
+              "indexed": true,
+              "name": "market",
+              "type": "address"
+            }
+          ],
+          "name": "NewMarket",
+          "type": "event"
+        },
+        "0xef8ea3d0ef6bf7f673a09aa675838d76573d86e5a9fc235846ac3f54195d7217": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "DIN",
+              "type": "uint256"
+            },
+            {
+              "indexed": true,
+              "name": "owner",
+              "type": "address"
+            }
+          ],
+          "name": "NewRegistration",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0x855a91694359b11bc7fbae79375c418036c27627",
+      "updated_at": 1504558158163
+    },
+    "1504577847559": {
+      "events": {
+        "0x4c5d8ccfd4f32dad0c449108334c94e0bada87b1453ad71e79e233545f4c48a6": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "DIN",
+              "type": "uint256"
+            },
+            {
+              "indexed": true,
+              "name": "owner",
+              "type": "address"
+            }
+          ],
+          "name": "NewOwner",
+          "type": "event"
+        },
+        "0x4582f3d992ffac5686bfcf1936b27b7983244893d40847f87b6e297b1359dab9": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "DIN",
+              "type": "uint256"
+            },
+            {
+              "indexed": true,
+              "name": "market",
+              "type": "address"
+            }
+          ],
+          "name": "NewMarket",
+          "type": "event"
+        },
+        "0xef8ea3d0ef6bf7f673a09aa675838d76573d86e5a9fc235846ac3f54195d7217": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "DIN",
+              "type": "uint256"
+            },
+            {
+              "indexed": true,
+              "name": "owner",
+              "type": "address"
+            }
+          ],
+          "name": "NewRegistration",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0x02118a17bb3f0bcb5918392b8654074c6994572f",
+      "updated_at": 1504669254501
+    },
+    "1504715507090": {
+      "events": {
+        "0x4c5d8ccfd4f32dad0c449108334c94e0bada87b1453ad71e79e233545f4c48a6": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "DIN",
+              "type": "uint256"
+            },
+            {
+              "indexed": true,
+              "name": "owner",
+              "type": "address"
+            }
+          ],
+          "name": "NewOwner",
+          "type": "event"
+        },
+        "0x4582f3d992ffac5686bfcf1936b27b7983244893d40847f87b6e297b1359dab9": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "DIN",
+              "type": "uint256"
+            },
+            {
+              "indexed": true,
+              "name": "market",
+              "type": "address"
+            }
+          ],
+          "name": "NewMarket",
+          "type": "event"
+        },
+        "0xef8ea3d0ef6bf7f673a09aa675838d76573d86e5a9fc235846ac3f54195d7217": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "DIN",
+              "type": "uint256"
+            },
+            {
+              "indexed": true,
+              "name": "owner",
+              "type": "address"
+            }
+          ],
+          "name": "NewRegistration",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0x6bc9c72966add1abc70c548347b2ab648a2a4f40",
+      "updated_at": 1504715603482
+    }
+  },
   "schema_version": "0.0.5",
-  "updated_at": 1503737311746
+  "updated_at": 1505117957002
 }
