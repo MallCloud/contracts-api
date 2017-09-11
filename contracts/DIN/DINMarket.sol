@@ -1,6 +1,6 @@
 pragma solidity ^0.4.11;
 
-import "../KioskMarketToken.sol";
+import "../Kiosk.sol";
 import "../StandardMarket.sol";
 
 contract DINMarket is StandardMarket {
@@ -12,14 +12,19 @@ contract DINMarket is StandardMarket {
 
 	uint256 public genesisDIN;
 
-	function DINMarket(KioskMarketToken _KMT) StandardMarket(_KMT) {
+	function DINMarket(Kiosk _kiosk) StandardMarket(_kiosk) {
 		genesisDIN = registry.genesis();
 	}
 
-	function buy(uint256 DIN, uint256 quantity, address buyer) returns (bool) {
-		// Expect the next DIN on the registrar to be registered.
+	function buy(
+		uint256 DIN,
+		uint256 quantity,
+		uint256 value,
+		address buyer,
+		bool approved
+	) returns (bool) {
+		// Expect the next sequential DIN on the registrar to be registered.
 		expected[buyer] = registrar.index() + 1;
-
 		registrar.registerDINsForOwner(buyer, quantity);
 	}
 
