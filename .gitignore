@@ -7,6 +7,7 @@ npm-debug.log
 yarn-error.log
 docker-compose.override.yml
 package-lock.json
+reference_contracts
 
 # Editors and IDEs
 .vscode/*
