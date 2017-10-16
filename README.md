@@ -81,7 +81,7 @@ Docker based setup sets up private ethereum nodes that can be used in order to d
 There are 3 separate consoles that need to be opened with separate instructions put into them. They are mentioned here as Console 1, Console 2 & Console 3
 
 1. **[Console 1]** In the `contracts-api` repository, run `docker-compose up`.
-2. **[Console 2]** Run `docker exec -it contractsapi_eth_1 geth attach ipc://root/.ethereum/devchain/geth.ipc`.
+2. **[Console 2]** Run `docker exec -it bootstrap geth attach ipc://root/.ethereum/devchain/geth.ipc`.
 3. **[Console 2]** A wallet(ethereum account) needs to be used in this step. An already available account may be used here or a separate account may be created.
 
     When a new account is created (for ease; use Metamask), the following steps need to be taken :
