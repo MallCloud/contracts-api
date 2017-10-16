@@ -32,7 +32,7 @@ import {
     getJSONFromRelativeURLUsingCred,
 } from '../rest/user-api';
 
-import DINConnectorInstance from '../connectors/dinRegistryConn';
+import DINConnectorInstance from '../connectors/createDIN';
 
 const tmQuery = {
     type: TrainedModelType,
@@ -80,6 +80,7 @@ const createTrainedModel = mutationWithClientMutationId ({
     async mutateAndGetPayload(input, context) {
         return getJSONFromRelativeURL(`/api/users/${input.userid}`, input.token)
             .then(function(info) {
+                console.log(info.blockchain_address);
                 return DINConnectorInstance.createNewDIN(info.blockchain_address);
             })
             .then(function(din, auth) {
