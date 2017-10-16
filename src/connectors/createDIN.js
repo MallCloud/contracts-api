@@ -9,7 +9,7 @@ import contract from 'truffle-contract';
 import path from 'path';
 
 var requireNoCache = require("require-nocache")(module);
-var url = 'http://172.21.0.3:8545';
+var url = 'http://172.21.0.5:8545';
 var provider = new Web3.providers.HttpProvider(url);
 var temp = Temp.track();
 
@@ -70,9 +70,9 @@ const DINConnectorInstance = {
      * take the abi file and connect contract corresponding to it
      */
     getContract: function() {
-        var buyArtifact = require('../contracts/Buy.json');
-        this.contracts.Buy = contract(dinRegistryArtifact);
-        this.contracts.Buy.setProvider(this.web3Provider);
+        var DINRegistrarArtifact = require('../contracts/DINRegistrar.json');
+        this.contracts.DINRegistrar = contract(DINRegistrarArtifact);
+        this.contracts.DINRegistrar.setProvider(this.web3Provider);
     },
 
     /**
@@ -129,9 +129,9 @@ const DINConnectorInstance = {
         this.getContract();
 
         self.account = account;
-        self.contractAddr = "0xf36d244d2f3625cc6833aed20901d2d35fece254";
+        self.contractAddr = "0x6d46ea82eb09fd89573bb043bbf26d9631194615";
 
-        return self.contracts.Buy.at(self.contractAddr)
+        return self.contracts.DINRegistrar.at(self.contractAddr)
             .then(function(instance) {
                 console.log(self.callback);
                 var contractInstance = instance;
@@ -140,7 +140,7 @@ const DINConnectorInstance = {
                 // event.watch(self.callback);
 
                 console.log(contractInstance);
-                return contractInstance.buyDIN({from:self.account})
+                return contractInstance.registerDIN({from:self.account})
                     .then(function() {
                         // event.stopWatching();
                         console.log(logger);
