@@ -10,6 +10,10 @@ const DINMarket = artifacts.require("DIN/DINMarket.sol");
 const EtherMarket = artifacts.require("ether/EtherMarket.sol");
 const ENSMarket = artifacts.require("ENS/ENSMarket.sol");
 const ENS = artifacts.require("ENS/ENS/ENS.sol");
+const DatasetMarket = artifacts.require("DatasetMarket/DatasetMarket.sol");
+const NotebookMarket = artifacts.require("NotebookMarket/NotebookMarket.sol");
+const RFSMarket = artifacts.require("RFSMarket/RFSMarket.sol");
+const TrainedModelMarket = artifacts.require("TrainedModelMarket/TrainedModelMarket.sol");
 const TestRegistrar = artifacts.require("ENS/ENS/TestRegistrar.sol");
 const strings = artifacts.require("utils/strings.sol");
 const StringUtils = artifacts.require("utils/StringUtils.sol");
@@ -135,10 +139,30 @@ const deployENS = async (deployer, network, accounts) => {
   await ENS.at(ENS.address).setOwner(subnodeNameHash, ENSMarket.address);
 };
 
+const deployDatasetMarket = async (deployer, network, accounts) => {
+ 
+};
+
+const deployNotebookMarket = async (deployer, network, accounts) => {
+
+};
+
+const deployTrainedModelMarket = async (deployer, network, accounts) => {
+
+};
+
+const deployRFSMarket = async (deployer, network, accounts) => {
+
+};
+
 module.exports = async (deployer, network, accounts) => {
   deployer.deploy(Kiosk).then(async () => {
     await deployKiosk(deployer, network, accounts);
     await deployEtherMarket(deployer, network, accounts);
     await deployENS(deployer, network, accounts);
+    await deployDatasetMarket(deployer, network, accounts);
+    await deployNotebookMarket(deployer, network, accounts);
+    await deployRFSMarket(deployer, network, accounts);
+    await deployTrainedModelMarket(deployer, network, accounts);
   });
 };
