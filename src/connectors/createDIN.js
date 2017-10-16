@@ -46,7 +46,7 @@ const DINConnectorInstance = {
      */
     callback: function(error, result) {
         if (!error) {
-            logger = result;
+            this.logger = result;
             console.log(result);
         } else {
             console.log(error)
@@ -129,22 +129,19 @@ const DINConnectorInstance = {
         this.getContract();
 
         self.account = account;
-        self.contractAddr = "0x6d46ea82eb09fd89573bb043bbf26d9631194615";
+        self.contractAddr = "0x1bf973657c9c28be8b13a14016d638db383f7f25";
 
         return self.contracts.DINRegistrar.at(self.contractAddr)
             .then(function(instance) {
-                console.log(self.callback);
                 var contractInstance = instance;
 
                 // var event = contractInstance.NewRegistration({owner: self.account});
                 // event.watch(self.callback);
 
-                console.log(contractInstance);
                 return contractInstance.registerDIN({from:self.account})
                     .then(function() {
                         // event.stopWatching();
-                        console.log(logger);
-                        return logger.args.DIN.toString();
+                        return self.logger.args.DIN.toString();
                     })
             })
             .then((result) => {
