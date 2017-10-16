@@ -33,7 +33,7 @@ import {
     getJSONFromRelativeURLUsingCred,
 } from '../rest/user-api';
 
-import DINConnectorInstance from '../connectors/dinRegistryConn';
+import DINConnectorInstance from '../connectors/createDIN';
 
 const notebookQuery = {
     type: NotebookType,
