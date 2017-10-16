@@ -32,7 +32,7 @@ import {
 } from '../rest/user-api';
 
 import { ProductType } from './ProductType';
-import DINConnectorInstance from '../connectors/dinRegistryConn';
+import DINConnectorInstance from '../connectors/createDIN';
 
 const datasetQuery = {
     type: DatasetType,
