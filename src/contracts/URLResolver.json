@@ -1,5 +1,5 @@
 {
-  "contract_name": "Resolver",
+  "contract_name": "URLResolver",
   "abi": [
     {
       "constant": true,
@@ -14,6 +14,24 @@
         {
           "name": "",
           "type": "bool"
+        }
+      ],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "DIN",
+          "type": "uint256"
+        }
+      ],
+      "name": "productURL",
+      "outputs": [
+        {
+          "name": "",
+          "type": "string"
         }
       ],
       "payable": false,
