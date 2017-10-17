@@ -27,7 +27,7 @@ const subnodeSHA3 = web3.sha3("example");
 const subnodeName = "example.eth";
 const subnodeNameHash = namehash.hash(subnodeName);
 const subnodePrice = web3.toWei(0.02, "ether"); // Price in KMT, just using web3 for decimal conversion
-const initialSupply = web3.toWei(1000000, "ether"); // Initialize KMT with 1 million tokens
+const initialSupply = web3.toWei(900000000, "ether"); // Initialize KMT with 1 million tokens
 const genesis = 1000000000; // The genesis DIN (used for DIN product)
 const Promise = require("bluebird");
 
@@ -140,19 +140,127 @@ const deployENS = async (deployer, network, accounts) => {
 };
 
 const deployDatasetMarket = async (deployer, network, accounts) => {
- 
+  const account1 = accounts[0];
+
+  await Buy.at(Buy.address).buyDIN();
+
+  const event = Buy.at(Buy.address).LogBuyDIN({});
+  const eventAsync = Promise.promisifyAll(event)
+  const logs = await eventAsync.getAsync();
+  const DIN = logs[0]["args"]["DIN"];
+
+  // Deploy Dataset Market
+  await deployer.deploy(strings);
+  await deployer.deploy(StringUtils);
+  await deployer.link(strings, DatasetMarket);
+  await deployer.link(StringUtils, DatasetMarket);
+  await deployer.deploy(DatasetMarket, Kiosk.address); 
+
+  await DatasetMarket.at(DatasetMarket.address).setDomain(
+      DIN,
+      subnodeName,
+      subnodeNameHash,
+      subnodePrice,
+      true
+    );
+
+  await DINRegistry.at(DINRegistry.address).setMarket(
+      DIN,
+      DatasetMarket.address
+    );
 };
 
 const deployNotebookMarket = async (deployer, network, accounts) => {
+  const account1 = accounts[0];
 
+  await Buy.at(Buy.address).buyDIN();
+
+  const event = Buy.at(Buy.address).LogBuyDIN({});
+  const eventAsync = Promise.promisifyAll(event)
+  const logs = await eventAsync.getAsync();
+  const DIN = logs[0]["args"]["DIN"];
+
+  // Deploy Dataset Market
+  await deployer.deploy(strings);
+  await deployer.deploy(StringUtils);
+  await deployer.link(strings, DatasetMarket);
+  await deployer.link(StringUtils, DatasetMarket);
+  await deployer.deploy(DatasetMarket, Kiosk.address); 
+
+  await DatasetMarket.at(DatasetMarket.address).setDomain(
+      DIN,
+      subnodeName,
+      subnodeNameHash,
+      subnodePrice,
+      true
+    );
+
+  await DINRegistry.at(DINRegistry.address).setMarket(
+      DIN,
+      DatasetMarket.address
+    );
 };
 
 const deployTrainedModelMarket = async (deployer, network, accounts) => {
+  const account1 = accounts[0];
 
+  await Buy.at(Buy.address).buyDIN();
+
+  const event = Buy.at(Buy.address).LogBuyDIN({});
+  const eventAsync = Promise.promisifyAll(event)
+  const logs = await eventAsync.getAsync();
+  const DIN = logs[0]["args"]["DIN"];
+
+  // Deploy Dataset Market
+  await deployer.deploy(strings);
+  await deployer.deploy(StringUtils);
+  await deployer.link(strings, TrainedModelMarket);
+  await deployer.link(StringUtils, TrainedModelMarket);
+  await deployer.deploy(TrainedModelMarket, Kiosk.address); 
+
+  await TrainedModelMarket.at(TrainedModelMarket.address).setDomain(
+      DIN,
+      subnodeName,
+      subnodeNameHash,
+      subnodePrice,
+      true
+    );
+
+  await DINRegistry.at(DINRegistry.address).setMarket(
+      DIN,
+      TrainedModelMarket.address
+    );
 };
 
 const deployRFSMarket = async (deployer, network, accounts) => {
+  const account1 = accounts[0];
 
+  await Buy.at(Buy.address).buyDIN();
+
+  const event = Buy.at(Buy.address).LogBuyDIN({});
+  const eventAsync = Promise.promisifyAll(event)
+  const logs = await eventAsync.getAsync();
+  const DIN = logs[0]["args"]["DIN"];
+
+  // Deploy Dataset Market
+  await deployer.deploy(strings);
+  await deployer.deploy(StringUtils);
+  await deployer.link(strings, RFSMarket);
+  await deployer.link(StringUtils, RFSMarket);
+  await deployer.deploy(RFSMarket, Kiosk.address); 
+
+  await RFSMarket.at(RFSMarket.address).setDomain(
+      DIN,
+      subnodeName,
+      subnodeNameHash,
+      subnodePrice,
+      true
+    );
+
+  await DINRegistry.at(DINRegistry.address).setMarket(
+      DIN,
+      RFSMarket.address
+    );
 };
 
 module.exports = async (deployer, network, accounts) => {
