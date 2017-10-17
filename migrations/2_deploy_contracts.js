@@ -11,9 +11,13 @@ const EtherMarket = artifacts.require("ether/EtherMarket.sol");
 const ENSMarket = artifacts.require("ENS/ENSMarket.sol");
 const ENS = artifacts.require("ENS/ENS/ENS.sol");
 const DatasetMarket = artifacts.require("DatasetMarket/DatasetMarket.sol");
+const Dataset = artifacts.require("DatasetMarket/Dataset/Dataset.sol");
 const NotebookMarket = artifacts.require("NotebookMarket/NotebookMarket.sol");
+const Notebook = artifacts.require("NotebookMarket/Notebook/Notebook.sol");
 const RFSMarket = artifacts.require("RFSMarket/RFSMarket.sol");
+const RFS = artifacts.require("RFSMarket/RFS/RFS.sol");
 const TrainedModelMarket = artifacts.require("TrainedModelMarket/TrainedModelMarket.sol");
+const TrainedModel = artifacts.require("TrainedModelMarket/TrainedModel/TrainedModelMarket.sol");
 const TestRegistrar = artifacts.require("ENS/ENS/TestRegistrar.sol");
 const strings = artifacts.require("utils/strings.sol");
 const StringUtils = artifacts.require("utils/StringUtils.sol");
@@ -142,6 +146,9 @@ const deployENS = async (deployer, network, accounts) => {
 const deployDatasetMarket = async (deployer, network, accounts) => {
   const account1 = accounts[0];
 
+  await deployer.deploy(Dataset);
+
+  // Register a DIN
   await Buy.at(Buy.address).buyDIN();
 
   const event = Buy.at(Buy.address).LogBuyDIN({});
@@ -154,7 +161,7 @@ const deployDatasetMarket = async (deployer, network, accounts) => {
   await deployer.deploy(StringUtils);
   await deployer.link(strings, DatasetMarket);
   await deployer.link(StringUtils, DatasetMarket);
-  await deployer.deploy(DatasetMarket, Kiosk.address); 
+  await deployer.deploy(DatasetMarket, Kiosk.address, Dataset.address); 
 
   await DatasetMarket.at(DatasetMarket.address).setDomain(
       DIN,
@@ -168,11 +175,15 @@ const deployDatasetMarket = async (deployer, network, accounts) => {
       DIN,
       DatasetMarket.address
     );
+
+  await Dataset.at(Dataset.address).setOwner(subnodeNameHash, DatasetMarket.address);
 };
 
 const deployNotebookMarket = async (deployer, network, accounts) => {
   const account1 = accounts[0];
 
+  await deployer.deploy(Notebook);
+
   await Buy.at(Buy.address).buyDIN();
 
   const event = Buy.at(Buy.address).LogBuyDIN({});
@@ -185,7 +196,7 @@ const deployNotebookMarket = async (deployer, network, accounts) => {
   await deployer.deploy(StringUtils);
   await deployer.link(strings, DatasetMarket);
   await deployer.link(StringUtils, DatasetMarket);
-  await deployer.deploy(DatasetMarket, Kiosk.address); 
+  await deployer.deploy(DatasetMarket, Kiosk.address, Notebook.address); 
 
   await DatasetMarket.at(DatasetMarket.address).setDomain(
       DIN,
@@ -199,10 +210,14 @@ const deployNotebookMarket = async (deployer, network, accounts) => {
       DIN,
       DatasetMarket.address
     );
+
+  await Notebook.at(Notebook.address).setOwner(subnodeNameHash, NotebookMarket.address);
 };
 
 const deployTrainedModelMarket = async (deployer, network, accounts) => {
   const account1 = accounts[0];
+
+  await deployer.deploy(TrainedModel);
 
   await Buy.at(Buy.address).buyDIN();
 
@@ -216,7 +231,7 @@ const deployTrainedModelMarket = async (deployer, network, accounts) => {
   await deployer.deploy(StringUtils);
   await deployer.link(strings, TrainedModelMarket);
   await deployer.link(StringUtils, TrainedModelMarket);
-  await deployer.deploy(TrainedModelMarket, Kiosk.address); 
+  await deployer.deploy(TrainedModelMarket, Kiosk.address, TrainedModel.address); 
 
   await TrainedModelMarket.at(TrainedModelMarket.address).setDomain(
       DIN,
@@ -230,10 +245,14 @@ const deployTrainedModelMarket = async (deployer, network, accounts) => {
       DIN,
       TrainedModelMarket.address
     );
+
+  await TrainedModel.at(TrainedModel.address).setOwner(subnodeNameHash, TrainedModelMarket.address);
 };
 
 const deployRFSMarket = async (deployer, network, accounts) => {
   const account1 = accounts[0];
+
+  await deployer.deploy(RFS);
 
   await Buy.at(Buy.address).buyDIN();
 
@@ -247,7 +266,7 @@ const deployRFSMarket = async (deployer, network, accounts) => {
   await deployer.deploy(StringUtils);
   await deployer.link(strings, RFSMarket);
   await deployer.link(StringUtils, RFSMarket);
-  await deployer.deploy(RFSMarket, Kiosk.address); 
+  await deployer.deploy(RFSMarket, Kiosk.address, RFS.address); 
 
   await RFSMarket.at(RFSMarket.address).setDomain(
       DIN,
@@ -261,6 +280,8 @@ const deployRFSMarket = async (deployer, network, accounts) => {
       DIN,
       RFSMarket.address
     );
+
+  await RFS.at(RFS.address).setOwner(subnodeNameHash, RFSMarket.address);
 };
 
 module.exports = async (deployer, network, accounts) => {
